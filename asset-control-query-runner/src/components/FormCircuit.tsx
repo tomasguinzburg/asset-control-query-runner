@@ -3,6 +3,16 @@ import { Form, Col, Button } from 'react-bootstrap';
 import FormFile from 'react-bootstrap/FormFile';
 import ReactDOM from 'react-dom';
 
+let insertQuery: string;
+let param1: string;
+let param2: string ; 
+let param3: string ;
+let param4: string ;
+let param5: string ;
+let param6: string ;
+let param7: string ;
+let param8: string ;
+let param9: string ;
 
 type FormCircuitForm = {
   formCircuitShortname: string
@@ -24,19 +34,6 @@ const circuitForm: FormCircuitForm = {
   formGroupId: ''
 };
 
-
-let insertQuery: string;
-
-let param1: string;
-
-let param2: string ; 
-let param3: string ;
-let param4: string ;
-let param5: string ;
-let param6: string ;
-let param7: string ;
-let param8: string ;
-let param9: string ;
 
 const handleSubmit = (event: any) => {
   event.preventDefault();
