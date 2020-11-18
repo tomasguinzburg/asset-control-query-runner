@@ -24,8 +24,30 @@ const circuitForm: FormCircuitForm = {
   formGroupId: ''
 };
 
+
+const insertQuery: string = 'insert into SAN_AC_MR_PRO.MD_CIRCUITS (CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values (';
+
+const param1: string = "SAN_AC_MR_PRO.CIRCUIT_SEQ.NextVal";
+
+const param2: string = "'"+circuitForm.formCircuitShortname+"',";
+
+const param3: string = "'"+circuitForm.formCircuitLongName+"',";
+
+const param4: string = "to_timestamp('"+circuitForm.formDistributionTime+"', 'yyyy/mm/dd HH24:mi:ss'),";
+
+const param5: string = "'"+circuitForm.formTreeId+"',";
+
+const param6: string = "'"+circuitForm.formCalendar+"',";
+
+const param7: string = "'"+circuitForm.formProduct+"',";
+
+const param8: string = circuitForm.formGroupId;
+
+const param9: string = "(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname ='MD'));";
+
 const handleSubmit = (event: any) => {
   event.preventDefault();
+  console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9)
 }
 
 class FormCircuit extends React.Component {
