@@ -18,7 +18,7 @@ class TabNav extends React.Component {
                     <Nav.Link eventKey="second">Orden 1</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="third">Circuitos</Nav.Link>
+                    <Nav.Link eventKey="third">Circuits</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                     <Nav.Link eventKey="fourth">Jobs</Nav.Link>
