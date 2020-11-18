@@ -25,29 +25,36 @@ const circuitForm: FormCircuitForm = {
 };
 
 
-const insertQuery: string = 'insert into SAN_AC_MR_PRO.MD_CIRCUITS (CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values (';
+let insertQuery: string;
 
-const param1: string = "SAN_AC_MR_PRO.CIRCUIT_SEQ.NextVal";
+let param1: string;
 
-const param2: string = "'"+circuitForm.formCircuitShortname+"',";
-
-const param3: string = "'"+circuitForm.formCircuitLongName+"',";
-
-const param4: string = "to_timestamp('"+circuitForm.formDistributionTime+"', 'yyyy/mm/dd HH24:mi:ss'),";
-
-const param5: string = "'"+circuitForm.formTreeId+"',";
-
-const param6: string = "'"+circuitForm.formCalendar+"',";
-
-const param7: string = "'"+circuitForm.formProduct+"',";
-
-const param8: string = circuitForm.formGroupId;
-
-const param9: string = "(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname ='MD'));";
+let param2: string ; 
+let param3: string ;
+let param4: string ;
+let param5: string ;
+let param6: string ;
+let param7: string ;
+let param8: string ;
+let param9: string ;
 
 const handleSubmit = (event: any) => {
   event.preventDefault();
-  console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9)
+  createQuery();
+  console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9);
+}
+
+function createQuery() {
+  insertQuery = 'insert into SAN_AC_MR_PRO.MD_CIRCUITS (CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values (';
+  param1 = 'SAN_AC_MR_PRO.CIRCUIT_SEQ.NextVal,';
+  param2 = '\''+circuitForm.formCircuitShortname+'\',';
+  param3 = '\''+circuitForm.formCircuitLongName+'\',';
+  param4 = 'to_timestamp(\''+circuitForm.formDistributionTime+'\', \'yyyy/mm/dd HH24:mi:ss\'),';
+  param5 = '\''+circuitForm.formTreeId+'\',';
+  param6 = '\''+circuitForm.formCalendar+'\',';
+  param7 = '\''+circuitForm.formProduct+'\',';
+  param8 = circuitForm.formGroupId+',';
+  param9 = '(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname =\'MD\'));';
 }
 
 class FormCircuit extends React.Component {
