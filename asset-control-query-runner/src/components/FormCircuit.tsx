@@ -12,8 +12,9 @@ import { Layout, Menu,  Breadcrumb,   Form,
   TreeSelect,
   Switch, } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { FormInstance } from 'antd/lib/form';
 
-const { Header, Content, Footer, Sider } = Layout;
+const {Content} = Layout;
 
 let insertQuery: string;
 let param1: string;
@@ -46,13 +47,6 @@ const circuitForm: FormCircuitForm = {
   formGroupId: ''
 };
 
-
-const handleSubmit = (event: any) => {
-  event.preventDefault();
-  createQuery();
-  console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9);
-}
-
 function createQuery() {
   insertQuery = 'insert into SAN_AC_MR_PRO.MD_CIRCUITS (CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values (';
   param1 = 'SAN_AC_MR_PRO.CIRCUIT_SEQ.NextVal,';
@@ -66,48 +60,58 @@ function createQuery() {
   param9 = '(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname =\'MD\'));';
 }
 
-const onFinish = (values: any) => {
-  console.log('Received values of form: ', values);
+
+const tailLayout = {
+  wrapperCol: { offset: 9, span: 16 },
 };
 
-
 class FormCircuit extends React.Component {
-
+   formRef = React.createRef<FormInstance>();
+   
+   onFinish = (values: any) => {
+    createQuery();
+    console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9);
+  }
+   
    render() {
 
      return (
         <Content style={{ margin: '0 16px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
           <Breadcrumb.Item>New Circuit</Breadcrumb.Item>
         </Breadcrumb>
         <Form
+        name="control-ref"
+        ref={this.formRef}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
+        onFinish={this.onFinish}
       >
         <Form.Item label="Circuit Shortname">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formCircuitShortname = e.target.value} placeholder="Circuit Shortname" />
         </Form.Item>
         <Form.Item label="Circuit Longname">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formCircuitLongName = e.target.value} placeholder="Circuit Longname" />
         </Form.Item>
         <Form.Item label="Distribution Time">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formDistributionTime = e.target.value} placeholder="Distribution Time" />
         </Form.Item>
         <Form.Item label="Tree id">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formTreeId = e.target.value} placeholder="Tree id" />
         </Form.Item>
         <Form.Item label="Calendar">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formCalendar = e.target.value} placeholder="Calendar" />
         </Form.Item>
         <Form.Item label="Product">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formProduct = e.target.value} placeholder="Product" />
         </Form.Item>
         <Form.Item label="Group Id">
-          <Input />
+          <Input onChange={ (e) => circuitForm.formGroupId = e.target.value} placeholder="group id"/>
         </Form.Item>
-        <Form.Item label= " ">
-          <Button type="primary" block>Generate Query</Button>
+        <Form.Item {...tailLayout}>
+          <Button type="primary"  htmlType="submit" >Generate Query</Button>
         </Form.Item>
       </Form>
       </Content>
