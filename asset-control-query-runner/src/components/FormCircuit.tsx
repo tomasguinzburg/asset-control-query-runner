@@ -1,7 +1,19 @@
-import React from 'react';
-import { Form, Col, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
 import FormFile from 'react-bootstrap/FormFile';
 import ReactDOM from 'react-dom';
+import { Layout, Menu,  Breadcrumb,   Form,
+  Input,
+  Button,
+  Radio,
+  Select,
+  Cascader,
+  DatePicker,
+  InputNumber,
+  TreeSelect,
+  Switch, } from 'antd';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+
+const { Header, Content, Footer, Sider } = Layout;
 
 let insertQuery: string;
 let param1: string;
@@ -54,54 +66,51 @@ function createQuery() {
   param9 = '(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname =\'MD\'));';
 }
 
+const onFinish = (values: any) => {
+  console.log('Received values of form: ', values);
+};
+
+
 class FormCircuit extends React.Component {
 
    render() {
 
      return (
-       <Form onSubmit={handleSubmit}>
-       <Form.Text style={{fontSize: 40}}> New Circuit </Form.Text>
-        <div style={{margin: '2%', textAlign: 'left'}}>
-        <Form.Group  as={Col} controlId="formCircuitShortname">
-          <Form.Label>Circuit Shortname</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formCircuitShortname = e.target.value} placeholder="shortname"/>
-        </Form.Group>
-    
-        <Form.Group as={Col} controlId="formCircuitLongName">
-          <Form.Label>Circuit Longname</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formCircuitLongName = e.target.value} placeholder="longname"/>
-        </Form.Group>
-    
-        <Form.Group as={Col} controlId="formDistributionTime">
-          <Form.Label>Distribution Time</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formDistributionTime = e.target.value} placeholder="aaaa/mm/dd hh:mm:sss"/>
-        </Form.Group>
-      
-        <Form.Group as={Col} controlId="formTreeId">
-          <Form.Label>Tree id</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formTreeId = e.target.value} placeholder="Tree id"/>
-        </Form.Group>
-    
-        <Form.Group as={Col} controlId="formCalendar">
-          <Form.Label>Calendar</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formCalendar = e.target.value} placeholder="calendar"/>
-        </Form.Group>
-    
-        <Form.Group as={Col} controlId="formProduct">
-          <Form.Label>Product</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formProduct = e.target.value} placeholder="product"/>
-        </Form.Group>
-    
-        <Form.Group as={Col} controlId="formGroupId">
-          <Form.Label>Group Id</Form.Label>
-          <Form.Control onChange={ (e) => circuitForm.formGroupId = e.target.value} placeholder="group id"/>
-        </Form.Group>
-      </div>
-    
-      <Button variant="primary" type="submit">
-        Generate Query
-      </Button>
-    </Form>
+        <Content style={{ margin: '0 16px' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>New Circuit</Breadcrumb.Item>
+        </Breadcrumb>
+        <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+      >
+        <Form.Item label="Circuit Shortname">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Circuit Longname">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Distribution Time">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Tree id">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Calendar">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Product">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Group Id">
+          <Input />
+        </Form.Item>
+        <Form.Item label= " ">
+          <Button type="primary" block>Generate Query</Button>
+        </Form.Item>
+      </Form>
+      </Content>
      );
    }
 }
