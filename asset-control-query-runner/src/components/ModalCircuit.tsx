@@ -2,52 +2,31 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 
 
-class ModalCircuit extends React.Component<{}, {visible: Boolean}> {
+interface ModalCircuitOwnProps {
+  visible: boolean,
+  handleOk: (e: any) => void;
+  handleCancel: (e: any) => void;
+  queries: string[];
+}
+
+
+class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
   
-  state = {
-    visible: false,
-    disabled: true,
-  };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = (e: any) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = (e: any) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
   render() {
     return (
-      <>
-      {/* <Button type="primary" onClick={() => setVisible(true)}>
-        Open Modal of 1000px width
-      </Button> */}
       <Modal
         title="Modal 1000px width"
         centered
-        visible={this.state.visible}
-        onOk={() => this.handleOk}
-        onCancel={() => this.handleCancel}
+        visible={this.props.visible}
+        onOk={(e) => this.props.handleOk(e)}
+        onCancel={(e) => this.props.handleCancel(e)}
         width={1000}
-      >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+      >{this.props.queries.map((q: string) => (
+        <p>
+            {q}
+        </p>
+      ))}
       </Modal>
-    </>
     );
 
   }

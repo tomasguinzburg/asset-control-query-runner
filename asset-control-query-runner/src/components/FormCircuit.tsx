@@ -6,6 +6,7 @@ import { Layout
        , Button 
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
+import ModalCircuit from './ModalCircuit';
 
 const {Content} = Layout;
 const tailLayout = {
@@ -22,14 +23,15 @@ type CircuitForm = {
   groupId: string
 } 
 
-class FormCircuit extends React.Component<{}, {history: CircuitForm[]}> {
+class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayResults: boolean}> {
 
   formRef = React.createRef<FormInstance>();
 
   constructor(props: any){
     super(props);
     this.state = {
-      history: []
+      history: [],
+      displayResults: false
     };
   }
 
@@ -45,6 +47,8 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[]}> {
     queries.forEach(element => {
       console.log(element)
     });
+
+    this.showModal();
   }
   
   render() {
@@ -90,6 +94,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[]}> {
           <Button type="primary"  htmlType="button" onClick={() => this.generateQueries()} >Generate Query</Button>
         </Form.Item>
       </Form>
+      <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} />
       </Content>
      );
    }
@@ -118,6 +123,26 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[]}> {
                                                   , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
                                                   );`;
   }
+
+  showModal = () => {
+    this.setState({
+      displayResults: true,
+    });
+  };
+
+  handleOk = (e: any) => {
+    console.log(e);
+    this.setState({
+      displayResults: false,
+    });
+  };
+
+  handleCancel = (e: any) => {
+    console.log(e);
+    this.setState({
+      displayResults: false,
+    });
+  };
 
 }
 
