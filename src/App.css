@@ -13,6 +13,10 @@
   }
 }
 
+#components-form-demo-control-ref .ant-btn {
+  margin-right: 8px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -1,14 +1,22 @@
 import React from 'react';
 import { Layout
-       , Breadcrumb
-       , Form
-       , Input
-       , Button 
-       } from 'antd';
+  , Breadcrumb
+  , Form
+  , Input
+  , Button
+  , Avatar
+  , Typography 
+  } from 'antd';
 import { FormInstance } from 'antd/lib/form';
+<<<<<<< HEAD
 import ModalCircuit from './results/ModalCircuit';
+=======
+import ModalCircuit from './ModalCircuit';
+import { SmileOutlined, DatabaseOutlined } from '@ant-design/icons';
+>>>>>>> a12495d5544172f3ad36acbd24cbc76af2b6d155
 
 const {Content} = Layout;
+
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
@@ -79,6 +87,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
+<<<<<<< HEAD
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="button" onClick={() => this.showModal()} >Generate Query</Button>
@@ -88,6 +97,34 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
                     handleOk= {(e: any) => this.handleOk(e)} 
                     handleCancel= {(e: any) => this.handleCancel(e)} 
                     queries={this.state.history.map((e) => this.createQuery(e))}/>
+=======
+          <Button  htmlType="button" onClick={() => this.generateQueries()} >Generate Query</Button>
+        </Form.Item>
+      </Form>
+      <Form.Item
+            label="Query List"
+            shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
+          >
+      {({}) => 
+      {
+              return this.state.history.length ? (
+                <ul>
+                  {this.state.history.map((h: CircuitForm, index: any) => (
+                    <li key={index} className="history">
+                      <Avatar icon={<DatabaseOutlined />} />
+                      {index} - {h.circuitShortname}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <Typography.Text className="ant-form-text" type="secondary">
+                  ( <SmileOutlined /> No queries yet. )
+                </Typography.Text>
+              );
+            }}
+      </Form.Item>
+      {/* <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} /> */}
+>>>>>>> a12495d5544172f3ad36acbd24cbc76af2b6d155
       </Content>
      );
    }
