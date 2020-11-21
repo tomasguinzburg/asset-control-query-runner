@@ -75,7 +75,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
         <Form.Item label="Distribution Time" name="distributionTime">
           <Input placeholder="Distribution Time" />
         </Form.Item>
-        <Form.Item label="Tree id" name="treeId">
+        <Form.Item label="Tree id" name="treeID">
           <Input placeholder="Tree id" />
         </Form.Item>
         <Form.Item label="Calendar" name="calendar">
@@ -94,7 +94,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
           <Button type="primary"  htmlType="button" onClick={() => this.generateQueries()} >Generate Query</Button>
         </Form.Item>
       </Form>
-      <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} />
+      {/* <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} /> */}
       </Content>
      );
    }
