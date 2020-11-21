@@ -69,3 +69,10 @@
 .ant-advanced-search-form .ant-form-item-control-wrapper {
   flex: 1;
 }
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  content:url(https://www.primerempleo.com/storage/covers/fbc881b7105d2b8a06fa11de231dc0b162bf995d.jpg);
+}

@@ -1,17 +1,7 @@
-import React, { useState } from 'react';
-import FormFile from 'react-bootstrap/FormFile';
-import ReactDOM from 'react-dom';
-import { Layout, Menu,  Breadcrumb,   Form,
+import React from 'react';
+import { Layout, Breadcrumb, Form,
   Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch, } from 'antd';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+  Button } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 
 const {Content} = Layout;
@@ -60,6 +50,8 @@ function createQuery() {
   param9 = '(select type_id from SAN_AC_MR_PRO.MD_TYPES where type_shortname =\'MD\'));';
 }
 
+let queries: FormCircuitForm[] = [];
+
 
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
@@ -69,8 +61,10 @@ class FormCircuit extends React.Component {
    formRef = React.createRef<FormInstance>();
    
    onFinish = (values: any) => {
-    createQuery();
+    const queries2 = queries.concat([circuitForm]);
     console.log(insertQuery+param1+param2+param3+param4+param5+param6+param7+param8+param9);
+    this.formRef.current?.resetFields();
+    console.log(queries2);
   }
    
    render() {
@@ -86,28 +80,27 @@ class FormCircuit extends React.Component {
         ref={this.formRef}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
-        layout="horizontal"
         onFinish={this.onFinish}
       >
-        <Form.Item label="Circuit Shortname">
+        <Form.Item label="Circuit Shortname" name="circuitShortname">
           <Input onChange={ (e) => circuitForm.formCircuitShortname = e.target.value} placeholder="Circuit Shortname" />
         </Form.Item>
-        <Form.Item label="Circuit Longname">
+        <Form.Item label="Circuit Longname" name="circuitLongname">
           <Input onChange={ (e) => circuitForm.formCircuitLongName = e.target.value} placeholder="Circuit Longname" />
         </Form.Item>
-        <Form.Item label="Distribution Time">
+        <Form.Item label="Distribution Time" name="distributionTime">
           <Input onChange={ (e) => circuitForm.formDistributionTime = e.target.value} placeholder="Distribution Time" />
         </Form.Item>
-        <Form.Item label="Tree id">
+        <Form.Item label="Tree id" name="treeId">
           <Input onChange={ (e) => circuitForm.formTreeId = e.target.value} placeholder="Tree id" />
         </Form.Item>
-        <Form.Item label="Calendar">
+        <Form.Item label="Calendar" name="calendar">
           <Input onChange={ (e) => circuitForm.formCalendar = e.target.value} placeholder="Calendar" />
         </Form.Item>
-        <Form.Item label="Product">
+        <Form.Item label="Product" name="product">
           <Input onChange={ (e) => circuitForm.formProduct = e.target.value} placeholder="Product" />
         </Form.Item>
-        <Form.Item label="Group Id">
+        <Form.Item label="Group Id" name="groupId">
           <Input onChange={ (e) => circuitForm.formGroupId = e.target.value} placeholder="group id"/>
         </Form.Item>
         <Form.Item {...tailLayout}>
