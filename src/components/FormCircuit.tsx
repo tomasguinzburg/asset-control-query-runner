@@ -6,7 +6,7 @@ import { Layout
        , Button 
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import ModalCircuit from './ModalCircuit';
+import ModalCircuit from './results/ModalCircuit';
 
 const {Content} = Layout;
 const tailLayout = {
@@ -39,16 +39,6 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
     const history = this.state.history.concat(values);
     this.setState({history: history});
     this.formRef.current?.resetFields();
-  }
-
-  generateQueries = () => {
-    const queries: string[] = this.state.history.map((e) => this.createQuery(e));
-
-    queries.forEach(element => {
-      console.log(element)
-    });
-
-    this.showModal();
   }
   
   render() {
@@ -91,10 +81,13 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
           <Button type="primary"  htmlType="submit" >Add Query</Button>
         </Form.Item>
         <Form.Item {...tailLayout}>
-          <Button type="primary"  htmlType="button" onClick={() => this.generateQueries()} >Generate Query</Button>
+          <Button type="primary"  htmlType="button" onClick={() => this.showModal()} >Generate Query</Button>
         </Form.Item>
       </Form>
-      {/* <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} /> */}
+      <ModalCircuit visible={this.state.displayResults} 
+                    handleOk= {(e: any) => this.handleOk(e)} 
+                    handleCancel= {(e: any) => this.handleCancel(e)} 
+                    queries={this.state.history.map((e) => this.createQuery(e))}/>
       </Content>
      );
    }
@@ -115,7 +108,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
                                           values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
                                                   , '${form.circuitShortname}'
                                                   , '${form.circuitLongname}'
-                                                  , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)
+                                                  , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
                                                   , '${form.treeID}'
                                                   , '${form.calendar}'
                                                   , '${form.product}'
@@ -133,6 +126,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
   handleOk = (e: any) => {
     console.log(e);
     this.setState({
+      history: [],
       displayResults: false,
     });
   };

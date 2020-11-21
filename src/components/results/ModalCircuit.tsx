@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
+import QueryHighlighter from './QueryHighlighter';
+
 
 
 interface ModalCircuitOwnProps {
@@ -21,11 +23,8 @@ class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
         onOk={(e) => this.props.handleOk(e)}
         onCancel={(e) => this.props.handleCancel(e)}
         width={1000}
-      >{this.props.queries.map((q: string) => (
-        <p>
-            {q}
-        </p>
-      ))}
+      >
+        <QueryHighlighter queries={this.props.queries}/>
       </Modal>
     );
 
