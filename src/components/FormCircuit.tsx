@@ -1,22 +1,17 @@
 import React from 'react';
 import { Layout
-  , Breadcrumb
-  , Form
-  , Input
-  , Button
-  , Avatar
-  , Typography 
-  } from 'antd';
+       , Breadcrumb
+       , Form
+       , Input
+       , Button 
+       , Avatar
+       , Typography
+       } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-<<<<<<< HEAD
-import ModalCircuit from './results/ModalCircuit';
-=======
-import ModalCircuit from './ModalCircuit';
 import { SmileOutlined, DatabaseOutlined } from '@ant-design/icons';
->>>>>>> a12495d5544172f3ad36acbd24cbc76af2b6d155
+import ModalCircuit from './results/ModalCircuit';
 
 const {Content} = Layout;
-
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
@@ -87,26 +82,13 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
-<<<<<<< HEAD
+          <Button htmlType="button" onClick={() => this.showModal()} >Generate Query</Button>
         </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button type="primary"  htmlType="button" onClick={() => this.showModal()} >Generate Query</Button>
-        </Form.Item>
-      </Form>
-      <ModalCircuit visible={this.state.displayResults} 
-                    handleOk= {(e: any) => this.handleOk(e)} 
-                    handleCancel= {(e: any) => this.handleCancel(e)} 
-                    queries={this.state.history.map((e) => this.createQuery(e))}/>
-=======
-          <Button  htmlType="button" onClick={() => this.generateQueries()} >Generate Query</Button>
-        </Form.Item>
-      </Form>
-      <Form.Item
-            label="Query List"
-            shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
-          >
-      {({}) => 
-      {
+        <Form.Item label="Query List"
+                   shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
+        >
+            {() => 
+            {
               return this.state.history.length ? (
                 <ul>
                   {this.state.history.map((h: CircuitForm, index: any) => (
@@ -123,8 +105,14 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
               );
             }}
       </Form.Item>
-      {/* <ModalCircuit visible={this.state.displayResults} handleOk= {(e: any) => this.handleOk(e)} handleCancel= {(e: any) => this.handleCancel(e)} /> */}
->>>>>>> a12495d5544172f3ad36acbd24cbc76af2b6d155
+      </Form>
+      
+
+
+      <ModalCircuit visible={this.state.displayResults} 
+                    handleOk= {(e: any) => this.handleOk(e)} 
+                    handleCancel= {(e: any) => this.handleCancel(e)} 
+                    queries={this.state.history.map((e) => this.createQuery(e))}/>
       </Content>
      );
    }
