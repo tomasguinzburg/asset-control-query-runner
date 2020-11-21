@@ -120,26 +120,26 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
 
   createQuery = (form: CircuitForm): string => {
     return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID
-                                                  , CIRCUIT_SHORTNAME
-                                                  , CIRCUIT_LONGNAME
-                                                  , DISTRIBUTION_TIME
-                                                  , TIME_ZONE_ID
-                                                  , TREE_ID
-                                                  , CALENDAR
-                                                  , PRODUCT
-                                                  , GROUP_ID
-                                                  , TYPE_ID
-                                                  )
-                                          values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
-                                                  , '${form.circuitShortname}'
-                                                  , '${form.circuitLongname}'
-                                                  , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
-                                                  , '${form.treeID}'
-                                                  , '${form.calendar}'
-                                                  , '${form.product}'
-                                                  , ${form.groupId}
-                                                  , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
-                                                  );`;
+                                      , CIRCUIT_SHORTNAME
+                                      , CIRCUIT_LONGNAME
+                                      , DISTRIBUTION_TIME
+                                      , TIME_ZONE_ID
+                                      , TREE_ID
+                                      , CALENDAR
+                                      , PRODUCT
+                                      , GROUP_ID
+                                      , TYPE_ID
+                                      )
+                               values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
+                                      , '${form.circuitShortname}'
+                                      , '${form.circuitLongname}'
+                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
+                                      , '${form.treeID}'
+                                      , '${form.calendar}'
+                                      , '${form.product}'
+                                      , ${form.groupId}
+                                      , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
+                                      );`;
   }
 
   showModal = () => {

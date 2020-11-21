@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, message } from 'antd';
 import QueryHighlighter from './QueryHighlighter';
-
-
+import { CSSProperties } from 'styled-components';
 
 interface ModalCircuitOwnProps {
   visible: boolean,
@@ -13,16 +12,25 @@ interface ModalCircuitOwnProps {
 
 
 class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
+
+  toClipboard = (event: any) => {
+    navigator.clipboard.writeText(this.props.queries.reduce((acc, e) => acc + '\n' + e, "").substring(1));
+    message.info('Queries copiadas al portapapeles');
+    this.props.handleOk(event);
+  }
   
   render() {
     return (
       <Modal
-        title="Modal 1000px width"
+        title="Queries"
         centered
         visible={this.props.visible}
-        onOk={(e) => this.props.handleOk(e)}
+        onOk={(e) => this.toClipboard(e)}
         onCancel={(e) => this.props.handleCancel(e)}
-        width={1000}
+        cancelText="Keep editing"
+        okText="Copy to clipboard and clean queue"
+        width={1280}
+        className="modal"
       >
         <QueryHighlighter queries={this.props.queries}/>
       </Modal>
