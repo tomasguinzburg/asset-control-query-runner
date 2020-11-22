@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 import { Layout
        , Breadcrumb
        , Form
@@ -39,6 +40,7 @@ formRef = React.createRef<FormInstance>();
   }
 
   onFinish = (values: FormValues) => {
+    values.distributionTime = Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss');
     const history = this.state.queryHistory.concat(values);
     this.setState({queryHistory: history});
     this.formRef.current?.resetFields();
