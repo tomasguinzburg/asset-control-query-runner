@@ -5,6 +5,7 @@ import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 class QueryHighlighter extends React.Component<{queries: string[]}> {
 
+  
   render() {
     return (
       <SyntaxHighlighter 

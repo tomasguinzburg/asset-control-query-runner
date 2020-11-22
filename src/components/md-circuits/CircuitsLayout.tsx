@@ -6,6 +6,7 @@ import { Layout
        , Button 
        , List
        , Avatar
+       , Col
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { DatabaseOutlined } from '@ant-design/icons';
@@ -63,42 +64,55 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-          <Input placeholder="circuit_shortname" />
+          <Col span={6}>
+            <Input placeholder="circuit_shortname" />
+          </Col>
         </Form.Item>
         <Form.Item label="circuit_longname" 
                    name="circuitLongname"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
+          <Col span={10}>
           <Input placeholder="circuit_longname" />
+          </Col>
         </Form.Item>
         <Form.Item label="distribution_time" 
                    name="distributionTime"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-          <Input placeholder="distribution_time" />
+          <Col span={10}>
+            <Input placeholder="aaaa/mm/dd hh:mm:ss" />
+          </Col>
         </Form.Item>
         <Form.Item label="tree_id" 
                    name="treeID"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-          <Input placeholder="tree_id" />
+          <Col span={4}>
+            <Input placeholder="tree_id" />
+          </Col>
         </Form.Item>
         <Form.Item label="calendar" 
                    name="calendar"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-          <Input placeholder="calendar" />
+          <Col span={4}>
+            <Input placeholder="calendar" />
+          </Col>
         </Form.Item>
         <Form.Item label="product" 
                    name="product"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-          <Input placeholder="product" />
+
+          <Col span={10}>
+            <Input placeholder="product" />
+          </Col>
         </Form.Item>
         <Form.Item label="group_id" 
                    name="groupID"
@@ -114,7 +128,9 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
                              })
                           ]}
         >
-          <Input placeholder="0"/>
+          <Col span={3}>
+            <Input placeholder="0"/>
+          </Col>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
