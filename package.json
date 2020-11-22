@@ -24,8 +24,6 @@
     "bootstrap": "^4.5.3",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "electron": "^11.0.2",
-    "electron-builder": "^22.9.1",
     "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
@@ -45,7 +43,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
-    "package": "yarn react-build --overwrite && electron-packager . --out=\"./build/dist/\" --overwrite",
+    "package": "rm -rf build/dist && rm -rf build/dist && yarn react-build --overwrite && electron-packager . --out=\"./build/dist/\" --overwrite",
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
@@ -69,6 +67,8 @@
   },
   "devDependencies": {
     "@types/react-syntax-highlighter": "^13.5.0",
+    "electron": "^11.0.2",
+    "electron-builder": "^22.9.1",
     "electron-packager": "^15.1.0"
   }
 }
