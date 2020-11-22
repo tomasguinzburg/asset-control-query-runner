@@ -10,7 +10,6 @@ import { Layout
 import { FormInstance } from 'antd/lib/form';
 import { DatabaseOutlined } from '@ant-design/icons';
 import ModalCircuit from '../results/ModalCircuit';
-import { isNumericLiteral } from 'typescript';
 
 const {Content} = Layout;
 const tailLayout = {
