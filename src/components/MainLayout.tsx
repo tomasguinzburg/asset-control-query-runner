@@ -4,13 +4,13 @@ import {
   HighlightFilled
 } from '@ant-design/icons';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import CircuitsLayout from './md-circuits/CircuitsLayout';
+import AppRouter from './AppRouter';
 
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-class TabNav extends React.Component {
+class MainLayout extends React.Component {
 
   state = {
     collapsed: false,
@@ -61,7 +61,7 @@ class TabNav extends React.Component {
             <Layout className="site-layout">
             <Header className="site-layout-background" style={{ padding: 0 }} />
             <Content>
-              <Route path="/circuits" component={CircuitsLayout} />
+              <AppRouter/>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Qaracter ©2020</Footer>
           </Layout>
@@ -71,4 +71,4 @@ class TabNav extends React.Component {
   }
 }
 
-export default TabNav;
+export default MainLayout;
