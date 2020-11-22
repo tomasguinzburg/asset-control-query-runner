@@ -1,7 +1,11 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import {
-  HighlightFilled
+    BoxPlotOutlined
+  , ScheduleOutlined
+  , PullRequestOutlined
+  , ContainerOutlined
+  , SisternodeOutlined
 } from '@ant-design/icons';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AppRouter from './AppRouter';
@@ -34,23 +38,23 @@ class MainLayout extends React.Component {
           <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['/'+href]} selectedKeys={['/'+href]} mode="inline">
-            <SubMenu key="/order-0" icon={<HighlightFilled />} title="Order 0">
+            <SubMenu key="/order-0" icon={<ContainerOutlined />} title="Order 0">
                 <Menu.Item key="/types" onClick={this.forceReRender}>MD_TYPES</Menu.Item>
                 <Menu.Item key="/time-zones" onClick={this.forceReRender}>MD_TIME_ZONES</Menu.Item>
                 <Menu.Item key="/indicators" onClick={this.forceReRender}>MD_INDICATORS</Menu.Item>
               </SubMenu>
-              <SubMenu key="/order-1" icon={<HighlightFilled />} title="Order 1">
+              <SubMenu key="/order-1" icon={<SisternodeOutlined />} title="Order 1">
                 <Menu.Item key="/attributes" onClick={this.forceReRender}>MD_ATTRIBUTES</Menu.Item>
                 <Menu.Item key="/systems" onClick={this.forceReRender}>MD_SYSTEMS</Menu.Item>
               </SubMenu>
-              <Menu.Item key="/circuits" onClick={this.forceReRender} icon={<HighlightFilled />}>
+              <Menu.Item key="/circuits" onClick={this.forceReRender} icon={<BoxPlotOutlined />}>
               <Link to="/circuits"/>
                 MD_CIRCUITS
               </Menu.Item>
-              <Menu.Item key="/jobs" icon={<HighlightFilled />} onClick={this.forceReRender}>
+              <Menu.Item key="/jobs" icon={<ScheduleOutlined />} onClick={this.forceReRender}>
                 MD_JOBS
               </Menu.Item>
-              <SubMenu key="/last-order" icon={<HighlightFilled />} title="Last Order">
+              <SubMenu key="/last-order" icon={<PullRequestOutlined />} title="Last Order">
                 <Menu.Item key="/circuits-jobs" onClick={this.forceReRender}>MD_CIRCUITS_JOBS</Menu.Item>
                 <Menu.Item key="/circuits-systems" onClick={this.forceReRender}>MD_CIRCUITS_SYSTEMS</Menu.Item>
                 <Menu.Item key="/circuits-attributes" onClick={this.forceReRender}>MD_CIRCUITS_ATTRIBUTES</Menu.Item>
