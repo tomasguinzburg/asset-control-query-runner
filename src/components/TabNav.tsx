@@ -39,7 +39,7 @@ class TabNav extends React.Component {
                 <Menu.Item key="5">MD_SYSTEMS</Menu.Item>
               </SubMenu>
               <Menu.Item key="6" icon={<HighlightFilled />}>
-              <Link to="/circuit"/>
+              <Link to="#circuit"/>
                 MD_CIRCUITS
               </Menu.Item>
               <Menu.Item key="7" icon={<HighlightFilled />}>

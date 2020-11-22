@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Modal, Button, message } from 'antd';
+import React from 'react';
+import { Modal, message } from 'antd';
 import QueryHighlighter from './QueryHighlighter';
-import { CSSProperties } from 'styled-components';
 
 interface ModalCircuitOwnProps {
   visible: boolean,
