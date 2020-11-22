@@ -6,11 +6,11 @@ import { Layout
        , Button 
        , List
        , Avatar
-       , Typography
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { ExclamationCircleOutlined, DatabaseOutlined } from '@ant-design/icons';
+import { DatabaseOutlined } from '@ant-design/icons';
 import ModalCircuit from '../results/ModalCircuit';
+import { isNumericLiteral } from 'typescript';
 
 const {Content} = Layout;
 const tailLayout = {
@@ -60,26 +60,63 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
       wrapperCol={{ span: 14 }}
       onFinish={this.onFinish}
       >
-        <Form.Item label="circuit_shortname" name="circuitShortname">
+        <Form.Item label="circuit_shortname" 
+                   name="circuitShortname"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="circuit_shortname" />
         </Form.Item>
-        <Form.Item label="circuit_longname" name="circuitLongname">
+        <Form.Item label="circuit_longname" 
+                   name="circuitLongname"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="circuit_longname" />
         </Form.Item>
-        <Form.Item label="distribution_time" name="distributionTime">
+        <Form.Item label="distribution_time" 
+                   name="distributionTime"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="distribution_time" />
         </Form.Item>
-        <Form.Item label="tree_id" name="treeID">
+        <Form.Item label="tree_id" 
+                   name="treeID"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="tree_id" />
         </Form.Item>
-        <Form.Item label="calendar" name="calendar">
+        <Form.Item label="calendar" 
+                   name="calendar"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="calendar" />
         </Form.Item>
-        <Form.Item label="product" name="product">
+        <Form.Item label="product" 
+                   name="product"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string' }]}
+        >
           <Input placeholder="product" />
         </Form.Item>
-        <Form.Item label="group_id" name="groupID">
-          <Input placeholder="group_id"/>
+        <Form.Item label="group_id" 
+                   name="groupID"
+                   hasFeedback
+                   rules={[{ required: true, type: 'string'}
+                          ,  ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                    if (!isNaN(value)) {
+                                      return Promise.resolve();
+                                    }
+                                return Promise.reject('group_id should be numeric');
+                                }
+                             })
+                          ]}
+        >
+          <Input placeholder="0"/>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
@@ -100,7 +137,7 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar icon={<DatabaseOutlined />} />}
-                    title={index + ": " + item.circuitShortname}
+                    title={<a href={window.location.href + "/" + index}>{index + ": " + item.circuitShortname}</a> }
                     description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                   />
                 </List.Item>
@@ -151,7 +188,6 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
   };
 
   handleOk = (e: any) => {
-    console.log(e);
     this.setState({
       history: [],
       displayResults: false,
@@ -159,12 +195,14 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
   };
 
   handleCancel = (e: any) => {
-    console.log(e);
     this.setState({
       displayResults: false,
     });
   };
 
+  isNumeric = (s: string) => {
+    return !isNaN(parseInt(s));
+  }
 }
 
 export default CircuitsLayout;
