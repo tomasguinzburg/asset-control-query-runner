@@ -4,7 +4,7 @@ import {
   HighlightFilled
 } from '@ant-design/icons';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import FormCircuit from './FormCircuit';
+import CircuitsLayout from './md-circuits/CircuitsLayout';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -59,7 +59,7 @@ class TabNav extends React.Component {
             <Layout className="site-layout">
             <Header className="site-layout-background" style={{ padding: 0 }} />
             <Content>
-              <Route path="/circuits" component={FormCircuit} />
+              <Route path="/circuits" component={CircuitsLayout} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Qaracter ©2020</Footer>
           </Layout>

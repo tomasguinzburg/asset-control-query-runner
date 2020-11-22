@@ -8,15 +8,15 @@ import { Layout
        , Typography
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { SmileOutlined, DatabaseOutlined } from '@ant-design/icons';
-import ModalCircuit from './results/ModalCircuit';
+import { ExclamationCircleOutlined, DatabaseOutlined } from '@ant-design/icons';
+import ModalCircuit from '../results/ModalCircuit';
 
 const {Content} = Layout;
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
 
-type CircuitForm = {
+type FormValues = {
   circuitShortname: string
   circuitLongname: string
   distributionTime: string
@@ -26,7 +26,7 @@ type CircuitForm = {
   groupId: string
 } 
 
-class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayResults: boolean}> {
+class CircuitsLayout extends React.Component<{}, {history: FormValues[], displayResults: boolean}> {
 
   formRef = React.createRef<FormInstance>();
 
@@ -38,7 +38,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
     };
   }
 
-  onFinish = (values: CircuitForm) => {
+  onFinish = (values: FormValues) => {
     const history = this.state.history.concat(values);
     this.setState({history: history});
     this.formRef.current?.resetFields();
@@ -93,16 +93,16 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
             {
               return this.state.history.length ? (
                 <ul>
-                  {this.state.history.map((h: CircuitForm, index: any) => (
+                  {this.state.history.map((h: FormValues, index: any) => (
                     <li key={index} className="history">
                       <Avatar icon={<DatabaseOutlined />} />
-                      {index} - {h.circuitShortname}
+                      &nbsp;{index} - {h.circuitShortname}
                     </li>
                   ))}
                 </ul>
               ) : (
                 <Typography.Text className="ant-form-text" type="secondary">
-                  ( <SmileOutlined /> No queries yet. )
+                  <ExclamationCircleOutlined /> No queries yet
                 </Typography.Text>
               );
             }}
@@ -120,7 +120,7 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
    }
 
 
-  createQuery = (form: CircuitForm): string => {
+  createQuery = (form: FormValues): string => {
     return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID
                                       , CIRCUIT_SHORTNAME
                                       , CIRCUIT_LONGNAME
@@ -167,4 +167,4 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
 
 }
 
-export default FormCircuit;
+export default CircuitsLayout;

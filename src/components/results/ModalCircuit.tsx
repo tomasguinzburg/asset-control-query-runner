@@ -21,7 +21,7 @@ class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
   render() {
     return (
       <Modal
-        title="Queries"
+        title="Generated queries"
         centered
         visible={this.props.visible}
         onOk={(e) => this.toClipboard(e)}
