@@ -45,7 +45,6 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
   }
   
   render() {
-
     return (
       <Content style={{ margin: '0 16px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -136,7 +135,7 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar icon={<DatabaseOutlined />} />}
-                    title={<a href={window.location.href + "/" + index}>{index + ": " + item.circuitShortname}</a> }
+                    title={<a href={window.location.href + "/circuits/" + index}>{index + ": " + item.circuitShortname}</a> }
                     description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                   />
                 </List.Item>

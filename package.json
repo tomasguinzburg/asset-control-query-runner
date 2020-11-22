@@ -4,7 +4,7 @@
   "private": true,
   "description": "A query generator-runner for asset control circuit input",
   "author": "Franco Benchoa<fbenchoa@gmail.com>, Tomás Guinzburg<tomasguinzburg@gmail.com>",
-  "build": {  
+  "build": {
     "appId": "es.com.qaracter.asset.control.query.runner"
   },
   "main": "public/electron.js",
@@ -67,6 +67,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-syntax-highlighter": "^13.5.0"
+    "@types/react-syntax-highlighter": "^13.5.0",
+    "electron-packager": "^15.1.0"
   }
 }

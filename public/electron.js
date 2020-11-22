@@ -6,7 +6,8 @@ const isDev = require("electron-is-dev");
 
 
 const createWindow = () => {
-  let mainWindow = new BrowserWindow({width: 1440, height: 960 });
+  let mainWindow = new BrowserWindow({ width: 1440, height: 960 });
+  mainWindow.webContents.openDevTools()
   mainWindow.loadURL(
     isDev
     ? "http://localhost:3000"

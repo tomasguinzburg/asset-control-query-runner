@@ -26,8 +26,8 @@ class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
         visible={this.props.visible}
         onOk={(e) => this.toClipboard(e)}
         onCancel={(e) => this.props.handleCancel(e)}
-        cancelText="Keep editing"
-        okText="Copy to clipboard and clean queue"
+        cancelText="Cancel and keep editing"
+        okText="Confirm, copy to clipboard and clean queue"
         width={1280}
         className="modal"
       >

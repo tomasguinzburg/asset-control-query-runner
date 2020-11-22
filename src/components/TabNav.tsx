@@ -21,10 +21,12 @@ class TabNav extends React.Component {
     this.setState({ collapsed });
   };
 
+  forceReRender = () => {
+    this.setState({state: this.state});
+  }
+
   render() {
-    console.log("here");
     let href = window.location.href.split('/')[3];  //hack to select the key that matches the URL path on refresh
-    console.log("we are: " + href);
     const { collapsed } = this.state;
     return (
       <Router>
@@ -33,26 +35,26 @@ class TabNav extends React.Component {
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['/'+href]} selectedKeys={['/'+href]} mode="inline">
             <SubMenu key="/order-0" icon={<HighlightFilled />} title="Order 0">
-                <Menu.Item key="/types">MD_TYPES</Menu.Item>
-                <Menu.Item key="/time-zones">MD_TIME_ZONES</Menu.Item>
-                <Menu.Item key="/indicators">MD_INDICATORS</Menu.Item>
+                <Menu.Item key="/types" onClick={this.forceReRender}>MD_TYPES</Menu.Item>
+                <Menu.Item key="/time-zones" onClick={this.forceReRender}>MD_TIME_ZONES</Menu.Item>
+                <Menu.Item key="/indicators" onClick={this.forceReRender}>MD_INDICATORS</Menu.Item>
               </SubMenu>
               <SubMenu key="/order-1" icon={<HighlightFilled />} title="Order 1">
-                <Menu.Item key="/attributes">MD_ATTRIBUTES</Menu.Item>
-                <Menu.Item key="/systems">MD_SYSTEMS</Menu.Item>
+                <Menu.Item key="/attributes" onClick={this.forceReRender}>MD_ATTRIBUTES</Menu.Item>
+                <Menu.Item key="/systems" onClick={this.forceReRender}>MD_SYSTEMS</Menu.Item>
               </SubMenu>
-              <Menu.Item key="/circuits" icon={<HighlightFilled />}>
+              <Menu.Item key="/circuits" onClick={this.forceReRender} icon={<HighlightFilled />}>
               <Link to="/circuits"/>
                 MD_CIRCUITS
               </Menu.Item>
-              <Menu.Item key="/jobs" icon={<HighlightFilled />}>
+              <Menu.Item key="/jobs" icon={<HighlightFilled />} onClick={this.forceReRender}>
                 MD_JOBS
               </Menu.Item>
               <SubMenu key="/last-order" icon={<HighlightFilled />} title="Last Order">
-                <Menu.Item key="/circuits-jobs">MD_CIRCUITS_JOBS</Menu.Item>
-                <Menu.Item key="/circuits-systems">MD_CIRCUITS_SYSTEMS</Menu.Item>
-                <Menu.Item key="/circuits-attributes">MD_CIRCUITS_ATTRIBUTES</Menu.Item>
-                <Menu.Item key="/circuit-dependencies">MD_CIRCUIT_DEPENDENCIES</Menu.Item>
+                <Menu.Item key="/circuits-jobs" onClick={this.forceReRender}>MD_CIRCUITS_JOBS</Menu.Item>
+                <Menu.Item key="/circuits-systems" onClick={this.forceReRender}>MD_CIRCUITS_SYSTEMS</Menu.Item>
+                <Menu.Item key="/circuits-attributes" onClick={this.forceReRender}>MD_CIRCUITS_ATTRIBUTES</Menu.Item>
+                <Menu.Item key="/circuit-dependencies" onClick={this.forceReRender}>MD_CIRCUIT_DEPENDENCIES</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
