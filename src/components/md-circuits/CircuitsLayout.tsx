@@ -4,6 +4,7 @@ import { Layout
        , Form
        , Input
        , Button 
+       , List
        , Avatar
        , Typography
        } from 'antd';
@@ -23,7 +24,7 @@ type FormValues = {
   treeID: string  
   calendar: string
   product: string
-  groupId: string
+  groupID: string
 } 
 
 class CircuitsLayout extends React.Component<{}, {history: FormValues[], displayResults: boolean}> {
@@ -59,26 +60,26 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
       wrapperCol={{ span: 14 }}
       onFinish={this.onFinish}
       >
-        <Form.Item label="Circuit Shortname" name="circuitShortname">
-          <Input placeholder="Circuit Shortname" />
+        <Form.Item label="circuit_shortname" name="circuitShortname">
+          <Input placeholder="circuit_shortname" />
         </Form.Item>
-        <Form.Item label="Circuit Longname" name="circuitLongname">
-          <Input placeholder="Circuit Longname" />
+        <Form.Item label="circuit_longname" name="circuitLongname">
+          <Input placeholder="circuit_longname" />
         </Form.Item>
-        <Form.Item label="Distribution Time" name="distributionTime">
-          <Input placeholder="Distribution Time" />
+        <Form.Item label="distribution_time" name="distributionTime">
+          <Input placeholder="distribution_time" />
         </Form.Item>
-        <Form.Item label="Tree id" name="treeID">
-          <Input placeholder="Tree id" />
+        <Form.Item label="tree_id" name="treeID">
+          <Input placeholder="tree_id" />
         </Form.Item>
-        <Form.Item label="Calendar" name="calendar">
-          <Input placeholder="Calendar" />
+        <Form.Item label="calendar" name="calendar">
+          <Input placeholder="calendar" />
         </Form.Item>
-        <Form.Item label="Product" name="product">
-          <Input placeholder="Product" />
+        <Form.Item label="product" name="product">
+          <Input placeholder="product" />
         </Form.Item>
-        <Form.Item label="Group Id" name="groupId">
-          <Input placeholder="group id"/>
+        <Form.Item label="group_id" name="groupID">
+          <Input placeholder="group_id"/>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
@@ -89,23 +90,22 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
         <Form.Item label="Query List"
                    shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
         >
-            {() => 
-            {
-              return this.state.history.length ? (
-                <ul>
-                  {this.state.history.map((h: FormValues, index: any) => (
-                    <li key={index} className="history">
-                      <Avatar icon={<DatabaseOutlined />} />
-                      &nbsp;{index} - {h.circuitShortname}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <Typography.Text className="ant-form-text" type="secondary">
-                  <ExclamationCircleOutlined /> No queries yet
-                </Typography.Text>
-              );
-            }}
+          <List 
+              itemLayout="horizontal"
+              dataSource={this.state.history}
+              bordered
+              split
+              rowKey={(e) => e.circuitShortname}
+              renderItem={(item, index) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar icon={<DatabaseOutlined />} />}
+                    title={index + ": " + item.circuitShortname}
+                    description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
+                  />
+                </List.Item>
+              )}
+            />
       </Form.Item>
       </Form>
       
@@ -139,7 +139,7 @@ class CircuitsLayout extends React.Component<{}, {history: FormValues[], display
                                       , '${form.treeID}'
                                       , '${form.calendar}'
                                       , '${form.product}'
-                                      , ${form.groupId}
+                                      , ${form.groupID}
                                       , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
                                       );`;
   }
