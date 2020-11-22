@@ -22,41 +22,44 @@ class TabNav extends React.Component {
   };
 
   render() {
+    console.log("here");
+    let href = window.location.href.split('/')[3];  //hack to select the key that matches the URL path on refresh
+    console.log("we are: " + href);
     const { collapsed } = this.state;
     return (
       <Router>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={['sub1']} mode="inline">
-            <SubMenu key="sub1" icon={<HighlightFilled />} title="Orden 0">
-                <Menu.Item key="1">MD_TYPES</Menu.Item>
-                <Menu.Item key="2">MD_TIME_ZONES</Menu.Item>
-                <Menu.Item key="3">MD_INDICATORS</Menu.Item>
+            <Menu theme="dark" defaultSelectedKeys={['/'+href]} selectedKeys={['/'+href]} mode="inline">
+            <SubMenu key="/order-0" icon={<HighlightFilled />} title="Order 0">
+                <Menu.Item key="/types">MD_TYPES</Menu.Item>
+                <Menu.Item key="/time-zones">MD_TIME_ZONES</Menu.Item>
+                <Menu.Item key="/indicators">MD_INDICATORS</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub2" icon={<HighlightFilled />} title="Orden 1">
-                <Menu.Item key="4">MD_ATTRIBUTES</Menu.Item>
-                <Menu.Item key="5">MD_SYSTEMS</Menu.Item>
+              <SubMenu key="/order-1" icon={<HighlightFilled />} title="Order 1">
+                <Menu.Item key="/attributes">MD_ATTRIBUTES</Menu.Item>
+                <Menu.Item key="/systems">MD_SYSTEMS</Menu.Item>
               </SubMenu>
-              <Menu.Item key="6" icon={<HighlightFilled />}>
-              <Link to="#circuit"/>
+              <Menu.Item key="/circuits" icon={<HighlightFilled />}>
+              <Link to="/circuits"/>
                 MD_CIRCUITS
               </Menu.Item>
-              <Menu.Item key="7" icon={<HighlightFilled />}>
+              <Menu.Item key="/jobs" icon={<HighlightFilled />}>
                 MD_JOBS
               </Menu.Item>
-              <SubMenu key="sub3" icon={<HighlightFilled />} title="Last Order">
-                <Menu.Item key="8">MD_CIRCUITS_JOBS</Menu.Item>
-                <Menu.Item key="9">MD_CIRCUITS_SYSTEMS</Menu.Item>
-                <Menu.Item key="10">MD_CIRCUITS_ATTRIBUTES</Menu.Item>
-                <Menu.Item key="11">MD_CIRCUIT_DEPENDENCIES</Menu.Item>
+              <SubMenu key="/last-order" icon={<HighlightFilled />} title="Last Order">
+                <Menu.Item key="/circuits-jobs">MD_CIRCUITS_JOBS</Menu.Item>
+                <Menu.Item key="/circuits-systems">MD_CIRCUITS_SYSTEMS</Menu.Item>
+                <Menu.Item key="/circuits-attributes">MD_CIRCUITS_ATTRIBUTES</Menu.Item>
+                <Menu.Item key="/circuit-dependencies">MD_CIRCUIT_DEPENDENCIES</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
             <Layout className="site-layout">
             <Header className="site-layout-background" style={{ padding: 0 }} />
             <Content>
-              <Route path="/circuit" component={FormCircuit} />
+              <Route path="/circuits" component={FormCircuit} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Qaracter ©2020</Footer>
           </Layout>

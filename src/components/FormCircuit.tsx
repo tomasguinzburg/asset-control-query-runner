@@ -5,8 +5,7 @@ import { Layout
        , Input
        , Button 
        , Avatar
-       , Typography,
-       Alert
+       , Typography
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { SmileOutlined, DatabaseOutlined } from '@ant-design/icons';
