@@ -81,12 +81,9 @@ formRef = React.createRef<FormInstance>();
             <Form.Item label="distribution_time" 
                    name="distributionTime"
                    hasFeedback
-                   rules={[{ type: 'object', required: true, message: 'Please select time!' }]}
-                  //  {...config}
+                   rules={[{ required: true, message: 'Please select time!' }]}
             >
-              <Col span={10}>
                 <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-              </Col>
             </Form.Item>
             <Form.Item label="tree_id" 
                       name="treeID"
