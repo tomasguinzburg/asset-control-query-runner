@@ -5,7 +5,8 @@ import { Layout
        , Input
        , Button 
        , Avatar
-       , Typography
+       , Typography,
+       Alert
        } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { SmileOutlined, DatabaseOutlined } from '@ant-design/icons';
@@ -82,7 +83,9 @@ class FormCircuit extends React.Component<{}, {history: CircuitForm[], displayRe
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary"  htmlType="submit" >Add Query</Button>
-          <Button htmlType="button" onClick={() => this.showModal()} >Generate Query</Button>
+          { this.state.history.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
+                                          : <Button htmlType="button" disabled>Add a query first</Button> 
+          }
         </Form.Item>
         <Form.Item label="Query List"
                    shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
