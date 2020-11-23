@@ -11,9 +11,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker, Grid } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { DatabaseOutlined } from '@ant-design/icons';
+import { DatabaseFilled, CloseCircleFilled } from '@ant-design/icons';
 
 //
 // Styles
@@ -32,7 +32,8 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   addCircuit: addCircuit,
-  clearCircuits: clearCircuits 
+  deleteCircuit: deleteCircuit,
+  clearCircuits: clearCircuits,
 };
 
 const connector = connect( mapState, mapDispatch )
@@ -162,14 +163,17 @@ formRef = React.createRef<FormInstance>();
                   dataSource={this.props.circuitsHistory}
                   bordered
                   split
+
+                  size="small"
                   rowKey={(e) => e.circuitShortname}
                   renderItem={(item, index) => (
                     <List.Item>
                       <List.Item.Meta
-                        avatar={<Avatar icon={<DatabaseOutlined />} />}
+                        avatar={<Button shape="circle" icon={<DatabaseFilled />}/>}
                         title={<Link to={window.location.href + "/circuits/" + index}>{index + ": " + item.circuitShortname}</Link> }
                         description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                       />
+                      <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)}/>
                     </List.Item>
                   )}
                 />
@@ -216,7 +220,7 @@ formRef = React.createRef<FormInstance>();
 
   generateID = () => {
     return this.props.circuitsHistory.sort((a, b) => (a.ID - b.ID))
-                                     .reduce((acc, curr) => (acc === curr.ID?1:0), 0)
+                                     .reduce((acc, curr) => (acc === curr.ID ? acc+1 : acc), 0)
   }
 
   onEdit = (index: number = 0, form : FormValues) => {
