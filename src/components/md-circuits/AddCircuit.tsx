@@ -11,9 +11,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker, Tooltip } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { DatabaseOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, DeleteOutlined } from '@ant-design/icons';
 
 //
 // Styles
@@ -172,7 +172,14 @@ formRef = React.createRef<FormInstance>();
                       />
                     </List.Item>
                   )}
-                />
+                >
+                 { this.props.circuitsHistory.length > 0 ?
+                    <Tooltip title="Clear queue">
+                        <Button danger type="primary" icon={<DeleteOutlined />} onClick={this.props.clearCircuits} />
+                    </Tooltip> : ""
+                  }
+                </List>
+       
           </Form.Item>
           </Form>
 

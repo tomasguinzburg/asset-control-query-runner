@@ -91,3 +91,7 @@
   max-height: 50em;
   max-width: 100em;
 }
+
+.deleteButton {
+  float: 'right'
+}
