@@ -1,48 +1,56 @@
 import React from 'react';
 import Moment from 'moment';
-import { Layout
-       , Breadcrumb
-       , Form
-       , Input
-       , Button 
-       , List
-       , Avatar
-       , Col,
-       DatePicker
-       } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { DatabaseOutlined } from '@ant-design/icons';
 import ModalCircuit from '../results/ModalCircuit';
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 import { FormValues } from './FormValues';
 import EditCircuit from './EditCircuit';
+import { connect, ConnectedProps } from 'react-redux'
+import { RootState } from '../../store/root-reducer';
+import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker } from 'antd';
+import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
 
+//Styles
 const {Content} = Layout;
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
 
-interface AddCircuitState {
-  circuitsHistory: FormValues[],
-  displayResults: boolean,
-}
+//Redux+Typescript boilerplate
+const mapState = (state: RootState) => ({
+  circuitsHistory: state.circuits.circuitsHistory
+});
 
-class AddCircuit extends React.Component<{}, AddCircuitState> {
+const mapDispatch = {
+  addCircuit: addCircuit,
+  editCircuit: editCircuit,
+  deleteCircuit: deleteCircuit,
+  clearCircuits: clearCircuits 
+};
+
+const connector = connect( mapState, mapDispatch )
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+//Component
+class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boolean }> {
 
 formRef = React.createRef<FormInstance>();
 
   constructor(props: any){
     super(props);
     this.state = {
-      circuitsHistory: [],
       displayResults: false
     };
   }
 
   onFinish = (values: FormValues) => {
-    values.distributionTime = Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss');
-    const history = this.state.circuitsHistory.concat(values);
-    this.setState({circuitsHistory: history});
+    this.props.addCircuit({ ...values
+                          , ID: this.generateID()
+                          , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
+                          });
+
     this.formRef.current?.resetFields();
   }
   
@@ -135,8 +143,8 @@ formRef = React.createRef<FormInstance>();
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button type="primary"  htmlType="submit" >Add Query</Button>
-              { this.state.circuitsHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
-                                              : <Button htmlType="button" disabled>Add a query first</Button> 
+              { this.props.circuitsHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
+                                                      : <Button htmlType="button" disabled>Add a query first</Button> 
               }
             </Form.Item>
             <Form.Item label="Query List"
@@ -144,7 +152,7 @@ formRef = React.createRef<FormInstance>();
             >
               <List 
                   itemLayout="horizontal"
-                  dataSource={this.state.circuitsHistory}
+                  dataSource={this.props.circuitsHistory}
                   bordered
                   split
                   rowKey={(e) => e.circuitShortname}
@@ -164,12 +172,12 @@ formRef = React.createRef<FormInstance>();
           <ModalCircuit visible={this.state.displayResults} 
                         handleOk= {(e: any) => this.handleOk(e)} 
                         handleCancel= {(e: any) => this.handleCancel(e)} 
-                        queries={this.state.circuitsHistory.map((e) => this.createQuery(e))}/>
+                        queries={this.props.circuitsHistory.map((e) => this.createQuery(e))}/>
           </Content>
         </Route>
-        <Route path={`/circuits/:circuit_id`}>
-          <EditCircuit query={this.state.circuitsHistory[0]} onFinish={this.onEdit} index={0}/>
-        </Route>
+        {/* <Route path={`/circuits/:circuit_id`}>
+          <EditCircuit query={this.props.circuitsHistory[0]} onFinish={this.onEdit} index={0}/>
+        </Route> */}
       </Switch>
      );
    }
@@ -199,9 +207,14 @@ formRef = React.createRef<FormInstance>();
                                       );`;
   }
 
+  generateID = () => {
+    return this.props.circuitsHistory.sort((a, b) => (a.ID - b.ID))
+                                     .reduce((acc, curr) => (acc === curr.ID?1:0), 0)
+  }
+
   onEdit = (index: number = 0, form : FormValues) => {
-    const queryHistory = this.state.circuitsHistory.slice(0, index).concat(form).concat(this.state.circuitsHistory.slice(index+1))
-    this.setState({circuitsHistory: queryHistory}); 
+    // const queryHistory = this.state.circuits.slice(0, index).concat(form).concat(this.state.circuits.slice(index+1))
+    // this.setState({circuitsHistory: queryHistory}); 
   }
 
   showModal = () => {
@@ -211,8 +224,8 @@ formRef = React.createRef<FormInstance>();
   };
 
   handleOk = (e: any) => {
-    this.setState({
-      circuitsHistory: [],
+    this.props.clearCircuits()
+    this.setState({     
       displayResults: false,
     });
   };
@@ -228,4 +241,4 @@ formRef = React.createRef<FormInstance>();
   }
 }
 
-export default AddCircuit;
+export default connector(AddCircuit)    //El AddCircuit que se exporta es igual pero diferente

@@ -16,6 +16,7 @@ export interface CircuitsState {
 export const ADD_CIRCUIT = 'ADD_CIRCUIT'
 export const EDIT_CIRCUIT = 'EDIT_CIRCUIT'
 export const DELETE_CIRCUIT = 'DELETE_CIRCUIT'
+export const CLEAR_CIRCUITS = 'CLEAR_CIRCUITS'
 
 interface AddCircuitAction {
   type: typeof ADD_CIRCUIT
@@ -32,4 +33,8 @@ interface DeleteCircuitAction {
   payload: number
 }
 
-export type CircuitsActionTypes = AddCircuitAction | EditCircuitAction | DeleteCircuitAction
+interface ClearCircuitsAction {
+  type: typeof CLEAR_CIRCUITS
+}
+
+export type CircuitsActionTypes = AddCircuitAction | EditCircuitAction | DeleteCircuitAction | ClearCircuitsAction
