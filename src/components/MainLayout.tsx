@@ -33,7 +33,6 @@ class MainLayout extends React.Component {
     let href = window.location.href.split('/')[3];  //hack to select the key that matches the URL path on refresh
     const { collapsed } = this.state;
     return (
-      <Router>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
@@ -70,7 +69,6 @@ class MainLayout extends React.Component {
             <Footer style={{ textAlign: 'center' }}>Qaracter ©2020</Footer>
           </Layout>
         </Layout>
-      </Router>
     );
   }
 }

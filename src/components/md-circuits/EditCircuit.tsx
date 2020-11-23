@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'moment';
 
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect, useHistory} from 'react-router-dom';
 
 import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
@@ -34,40 +34,36 @@ const mapDispatch = {
   editCircuit: editCircuit,
 };
 
+interface OwnProps {
+  history: string[],
+}
+
 const connector = connect( mapState, mapDispatch )
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 //
 // Component
 //
-class EditCircuit extends React.Component<PropsFromRedux, { displayResults: boolean }> {
+class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
 
-formRef = React.createRef<FormInstance>();
+  formRef = React.createRef<FormInstance>();
 
-  constructor(props: PropsFromRedux){
-    super(props);
-    this.state = {
-      displayResults: false
-    };
-  }
 
   onFinish = (values: FormValues) => {
     this.props.editCircuit({ ...values 
                           , ID: this.props.circuit.ID
                           , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
                           });
-
     this.formRef.current?.resetFields();
+    this.props.history.push('/circuits')
   }
   
   render() {
     return (
-      <Switch>
-        <Route exact path="/circuits">
           <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
-            <Breadcrumb.Item>New Circuit</Breadcrumb.Item>
+            <Breadcrumb.Item>Edit query with ID: {this.props.circuit.ID}</Breadcrumb.Item>
           </Breadcrumb>
           <Form
           name="control-ref"
@@ -75,59 +71,57 @@ formRef = React.createRef<FormInstance>();
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
           onFinish={this.onFinish}
+          initialValues={{
+            circuitShortname: this.props.circuit.circuitShortname,
+            circuitLongname: this.props.circuit.circuitLongname,
+            distributionTime: Moment(this.props.circuit.distributionTime),
+            treeID: this.props.circuit.treeID,
+            calendar: this.props.circuit.calendar,
+            product: this.props.circuit.product,
+            groupID: this.props.circuit.groupID
+          }}
           >
             <Form.Item label="circuit_shortname" 
                    name="circuitShortname"
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-              <Col span={6}>
-                <Input placeholder="circuit_shortname" />
-              </Col>
+                <Input style={{width: "calc(70%)" }}/>
             </Form.Item>
             <Form.Item label="circuit_longname" 
                       name="circuitLongname"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={10}>
-              <Input placeholder="circuit_longname" />
-              </Col>
+              <Input style={{width: "calc(100%)" }}/>
             </Form.Item>
             <Form.Item label="distribution_time" 
                    name="distributionTime"
                    hasFeedback
                    rules={[{ required: true, message: 'Please select time!' }]}
             >
-                <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
             </Form.Item>
             <Form.Item label="tree_id" 
                       name="treeID"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={4}>
-                <Input placeholder="tree_id" />
-              </Col>
+                <Input style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item label="calendar" 
                       name="calendar"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={4}>
-                <Input placeholder="calendar" />
-              </Col>
+                <Input style={{width: "calc(50%)" }}/>
             </Form.Item>
             <Form.Item label="product" 
                       name="product"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-
-              <Col span={10}>
-                <Input placeholder="product" />
-              </Col>
+                <Input style={{width: "calc(100%)" }}/>
             </Form.Item>
             <Form.Item label="group_id" 
                       name="groupID"
@@ -143,20 +137,13 @@ formRef = React.createRef<FormInstance>();
                                 })
                               ]}
             >
-              <Col span={3}>
-                <Input placeholder="0"/>
-              </Col>
+                <Input style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
-              <Button type="primary"  htmlType="submit" >Add Query</Button>
+              <Button type="primary"  htmlType="submit">Update query</Button>
             </Form.Item>
           </Form>
           </Content>
-        </Route>
-        {/* <Route path={`/circuits/:circuit_id`}>
-          <EditCircuit query={this.props.circuitsHistory[0]} onFinish={this.onEdit} index={0}/>
-        </Route> */}
-      </Switch>
      );
    }
 

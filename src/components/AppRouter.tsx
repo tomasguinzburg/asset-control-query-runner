@@ -9,8 +9,7 @@ const AppRouter = () : any => {
         <Route exact path="/circuits">
           <AddCircuit />
         </Route>
-        <Route path="/circuits/:circuitID">
-          <EditCircuit />
+        <Route path="/circuits/:circuitID" component={EditCircuit}>
         </Route>
       </Switch>
     )

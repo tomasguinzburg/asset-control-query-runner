@@ -10,7 +10,7 @@ import { FormValues } from './FormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addCircuit, clearCircuits, deleteCircuit } from '../../store/md-circuits/actions';
+import { addCircuit, changeCircuitSelection, clearCircuits, deleteCircuit } from '../../store/md-circuits/actions';
 
 import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker } from 'antd';
 import { FormInstance } from 'antd/lib/form';
@@ -35,6 +35,7 @@ const mapDispatch = {
   addCircuit: addCircuit,
   deleteCircuit: deleteCircuit,
   clearCircuits: clearCircuits,
+  changeCircuitSelection: changeCircuitSelection
 };
 
 const connector = connect( mapState, mapDispatch )
@@ -65,9 +66,7 @@ formRef = React.createRef<FormInstance>();
   
   render() {
     return (
-      <Switch>
-        <Route exact path="/circuits">
-          <Content style={{ margin: '0 16px' }}>
+        <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
             <Breadcrumb.Item>New Circuit</Breadcrumb.Item>
@@ -171,7 +170,7 @@ formRef = React.createRef<FormInstance>();
                     <List.Item>
                       <List.Item.Meta
                         avatar={<Button shape="circle" icon={<DatabaseFilled />}/>}
-                        title={<Link to={path.join('circuits', `${index}`)}>{index + ": " + item.circuitShortname}</Link> }
+                        title={<Link to={path.join('circuits', `${index}`)} onClick={() => this.props.changeCircuitSelection(index)}>{"Query " + index + ": " + item.circuitShortname}</Link> }
                         description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                       />
                       <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)}/>
@@ -187,11 +186,6 @@ formRef = React.createRef<FormInstance>();
                         queries={this.props.circuitsHistory.map((e) => this.createFormatedQuery(e))}
                         unformattedQueries={this.props.circuitsHistory.map((e) => this.createUnformattedQuery(e))}/>
           </Content>
-        </Route>
-        {/* <Route path={`/circuits/:circuit_id`}>
-          <EditCircuit query={this.props.circuitsHistory[0]} onFinish={this.onEdit} index={0}/>
-        </Route> */}
-      </Switch>
      );
    }
 
