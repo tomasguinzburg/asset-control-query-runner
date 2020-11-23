@@ -7,7 +7,7 @@ import {
   , ContainerOutlined
   , SisternodeOutlined
 } from '@ant-design/icons';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 import AppRouter from './AppRouter';
 
 

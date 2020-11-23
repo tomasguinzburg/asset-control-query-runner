@@ -1,19 +1,16 @@
 import React from 'react';
 import Moment from 'moment';
 
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, Col, DatePicker } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { DatabaseFilled, CloseCircleFilled } from '@ant-design/icons';
-import { circuitsReducer } from '../../store/md-circuits/reducer';
 
 //
 // Styles
@@ -176,7 +173,7 @@ formRef = React.createRef<FormInstance>();
                                values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
                                       , '${form.circuitShortname}'
                                       , '${form.circuitLongname}'
-                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
+                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss')
                                       , '${form.treeID}'
                                       , '${form.calendar}'
                                       , '${form.product}'

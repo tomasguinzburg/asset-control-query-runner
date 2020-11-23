@@ -3,8 +3,6 @@ import Moment from 'moment';
 
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
-import path from 'path'
-
 import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
 
