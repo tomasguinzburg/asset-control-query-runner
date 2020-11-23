@@ -173,7 +173,7 @@ formRef = React.createRef<FormInstance>();
                                values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
                                       , '${form.circuitShortname}'
                                       , '${form.circuitLongname}'
-                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss')
+                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
                                       , '${form.treeID}'
                                       , '${form.calendar}'
                                       , '${form.product}'
