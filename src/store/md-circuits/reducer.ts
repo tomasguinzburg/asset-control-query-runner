@@ -3,11 +3,13 @@ import { CircuitsState
        , ADD_CIRCUIT
        , EDIT_CIRCUIT
        , DELETE_CIRCUIT
-       , CLEAR_CIRCUITS
+       , CLEAR_CIRCUITS,
+       CHANGE_SELECTION
        } from './types'
 
 const initialState : CircuitsState = {
-  circuitsHistory: []
+  circuitsHistory: [],
+  selected: NaN
 }
 
 
@@ -18,21 +20,27 @@ export function circuitsReducer( state : CircuitsState = initialState
                                ) : CircuitsState {
   switch(action.type){
     case ADD_CIRCUIT:
-      return { circuitsHistory: [ ...state.circuitsHistory
+      return { ...state 
+             , circuitsHistory: [ ...state.circuitsHistory
                                 , action.payload
                                 ]
              }
     case EDIT_CIRCUIT:
-      return { circuitsHistory: state.circuitsHistory.filter(circuit => circuit.ID !== action.payload.ID)
+      return { ...state
+             , circuitsHistory: state.circuitsHistory.filter(circuit => circuit.ID !== action.payload.ID)
                                                      .concat(action.payload)
                                                      .sort((a, b) => a.ID - b.ID)
              }
     case DELETE_CIRCUIT:
-      return { circuitsHistory: state.circuitsHistory.filter(circuit => circuit.ID !== action.payload)
+      return { ...state
+             , circuitsHistory: state.circuitsHistory.filter(circuit => circuit.ID !== action.payload)
                                                      .map((c, index) => ({ ...c, ID: index }))
              }
     case CLEAR_CIRCUITS:
-      return { circuitsHistory: [] }
+      return { ...state, circuitsHistory: [] }
+
+    case CHANGE_SELECTION:
+      return { ...state, selected: action.payload}
     default:
       return state;
   }

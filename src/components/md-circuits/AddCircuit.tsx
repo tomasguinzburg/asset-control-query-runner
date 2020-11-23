@@ -3,15 +3,16 @@ import Moment from 'moment';
 
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 
+import path from 'path'
+
 import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
-import EditCircuit from './EditCircuit';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
+import { addCircuit, clearCircuits, deleteCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker, Grid } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { DatabaseFilled, CloseCircleFilled } from '@ant-design/icons';
 
@@ -170,7 +171,7 @@ formRef = React.createRef<FormInstance>();
                     <List.Item>
                       <List.Item.Meta
                         avatar={<Button shape="circle" icon={<DatabaseFilled />}/>}
-                        title={<Link to={window.location.href + "/circuits/" + index}>{index + ": " + item.circuitShortname}</Link> }
+                        title={<Link to={path.join('circuits', `${index}`)}>{index + ": " + item.circuitShortname}</Link> }
                         description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                       />
                       <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)}/>
