@@ -1,44 +1,51 @@
 import React from 'react';
 import Moment from 'moment';
-import { FormInstance } from 'antd/lib/form';
-import { DatabaseOutlined } from '@ant-design/icons';
-import ModalCircuit from '../results/ModalCircuit';
+
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+
+import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
 import EditCircuit from './EditCircuit';
+
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker } from 'antd';
 import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
 
-//Styles
+import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker } from 'antd';
+import { FormInstance } from 'antd/lib/form';
+import { DatabaseOutlined } from '@ant-design/icons';
+
+//
+// Styles
+//
 const {Content} = Layout;
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
 
-//Redux+Typescript boilerplate
+//
+// Redux+Typescript boilerplate
+//
 const mapState = (state: RootState) => ({
   circuitsHistory: state.circuits.circuitsHistory
 });
 
 const mapDispatch = {
   addCircuit: addCircuit,
-  editCircuit: editCircuit,
-  deleteCircuit: deleteCircuit,
   clearCircuits: clearCircuits 
 };
 
 const connector = connect( mapState, mapDispatch )
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-
-//Component
+//
+// Component
+//
 class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boolean }> {
 
 formRef = React.createRef<FormInstance>();
 
-  constructor(props: any){
+  constructor(props: PropsFromRedux){
     super(props);
     this.state = {
       displayResults: false
@@ -46,7 +53,7 @@ formRef = React.createRef<FormInstance>();
   }
 
   onFinish = (values: FormValues) => {
-    this.props.addCircuit({ ...values
+    this.props.addCircuit({ ...values 
                           , ID: this.generateID()
                           , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
                           });
@@ -224,7 +231,6 @@ formRef = React.createRef<FormInstance>();
   };
 
   handleOk = (e: any) => {
-    this.props.clearCircuits()
     this.setState({     
       displayResults: false,
     });
