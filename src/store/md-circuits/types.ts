@@ -10,13 +10,15 @@ export interface Circuit {
 }
 
 export interface CircuitsState {
-  circuitsHistory: Circuit[]
+  circuitsHistory: Circuit[],
+  selected: number
 }
 
 export const ADD_CIRCUIT = 'ADD_CIRCUIT'
 export const EDIT_CIRCUIT = 'EDIT_CIRCUIT'
 export const DELETE_CIRCUIT = 'DELETE_CIRCUIT'
 export const CLEAR_CIRCUITS = 'CLEAR_CIRCUITS'
+export const CHANGE_SELECTION = 'CHANGE_SELECTION'
 
 interface AddCircuitAction {
   type: typeof ADD_CIRCUIT
@@ -37,4 +39,9 @@ interface ClearCircuitsAction {
   type: typeof CLEAR_CIRCUITS
 }
 
-export type CircuitsActionTypes = AddCircuitAction | EditCircuitAction | DeleteCircuitAction | ClearCircuitsAction
+interface ChangeCircuitSelection {
+  type: typeof CHANGE_SELECTION
+  payload: number
+}
+
+export type CircuitsActionTypes = AddCircuitAction | EditCircuitAction | DeleteCircuitAction | ClearCircuitsAction | ChangeCircuitSelection

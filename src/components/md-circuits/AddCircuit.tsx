@@ -3,15 +3,16 @@ import Moment from 'moment';
 
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
+import path from 'path'
+
 import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
-import EditCircuit from './EditCircuit';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addCircuit, clearCircuits, deleteCircuit, editCircuit } from '../../store/md-circuits/actions';
+import { addCircuit, clearCircuits, deleteCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Avatar, Col, DatePicker, Grid, Tooltip, Row } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker, Tooltip, Row } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { DatabaseFilled, CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
 
@@ -191,9 +192,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                       }
                     </Col>
                   </div>
-
                 </Row>
-
               </Form.Item>
             </Form>
 
