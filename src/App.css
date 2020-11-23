@@ -93,5 +93,7 @@
 }
 
 .deleteButton {
-  float: 'right'
+  float: 'right' !important;
+  display: 'flex' !important;
+  align-items: 'flex-end' !important;
 }
