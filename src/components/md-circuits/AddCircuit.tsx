@@ -19,7 +19,7 @@ import { DatabaseFilled, CloseCircleFilled, DeleteOutlined } from '@ant-design/i
 //
 const { Content } = Layout;
 const tailLayout = {
-  wrapperCol: { offset: 9, span: 16 },
+  wrapperCol: { offset: 9, span: 14 },
 };
 
 //
@@ -150,10 +150,16 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                 </Col>
               </Form.Item>
               <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit" >Add Query</Button>
-                {this.props.circuitsHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button>
-                  : <Button htmlType="button" disabled>Add a query first</Button>
-                }
+                <Row>
+                  <Col span={3}>
+                    <Button type="primary" htmlType="submit" >Add Query</Button>
+                  </Col>
+                  <Col span={1}>
+                    {this.props.circuitsHistory.length > 0 ? <Button  htmlType="button" onClick={() => this.showModal()} >Show SQL</Button>
+                      : <Button htmlType="button" disabled>Add a query first</Button>
+                    }
+                  </Col>
+                </Row>
               </Form.Item>
               <Form.Item label="Query List"
                 shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
@@ -193,7 +199,6 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                 </Row>
               </Form.Item>
             </Form>
-
             <ModalCircuit visible={this.state.displayResults}
               handleOk={(e: any) => this.handleOk(e)}
               handleCancel={(e: any) => this.handleCancel(e)}

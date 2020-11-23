@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, message } from 'antd';
+import { Modal, message, Button } from 'antd';
 import QueryHighlighter from './QueryHighlighter';
 
 interface ModalCircuitOwnProps {
@@ -18,6 +18,12 @@ class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
     message.info('Queries copied to clipboard');
     this.props.handleOk(event);
   }
+
+  toACLClipboard = (event: any) => {
+    navigator.clipboard.writeText(this.props.unformattedQueries.reduce((acc, e) => acc + '\n' + "SQL "+ e, "").substring(1));
+    message.info('Queries copied to clipboard');
+    this.props.handleOk(event);
+  }
   
   render() {
     return (
@@ -25,13 +31,14 @@ class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
         title="Generated queries"
         centered
         visible={this.props.visible}
-        onOk={(e) => this.toClipboard(e)}
         onCancel={(e) => this.props.handleCancel(e)}
-        cancelText="Cancel and keep editing"
-        okText="Confirm, copy to clipboard and clean queue"
+        cancelText="Close"
         width={1280}
         className="modal"
+        okButtonProps={{ style: { display: 'none' } }}
       >
+        <Button onClick={this.toClipboard}> Copy SQL </Button>
+        <Button onClick={this.toACLClipboard}> Copy ACL </Button>  
         <QueryHighlighter queries={this.props.queries}/>
       </Modal>
     );
