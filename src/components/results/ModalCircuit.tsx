@@ -7,13 +7,14 @@ interface ModalCircuitOwnProps {
   handleOk: (e: any) => void;
   handleCancel: (e: any) => void;
   queries: string[];
+  unformattedQueries: string[];
 }
 
 
 class ModalCircuit extends React.Component<ModalCircuitOwnProps> {
 
   toClipboard = (event: any) => {
-    navigator.clipboard.writeText(this.props.queries.reduce((acc, e) => acc + '\n' + e, "").substring(1));
+    navigator.clipboard.writeText(this.props.unformattedQueries.reduce((acc, e) => acc + '\n' + e, "").substring(1));
     message.info('Queries copied to clipboard');
     this.props.handleOk(event);
   }

@@ -179,7 +179,8 @@ formRef = React.createRef<FormInstance>();
           <ModalCircuit visible={this.state.displayResults} 
                         handleOk= {(e: any) => this.handleOk(e)} 
                         handleCancel= {(e: any) => this.handleCancel(e)} 
-                        queries={this.props.circuitsHistory.map((e) => this.createQuery(e))}/>
+                        queries={this.props.circuitsHistory.map((e) => this.createFormatedQuery(e))}
+                        unformattedQueries={this.props.circuitsHistory.map((e) => this.createUnformattedQuery(e))}/>
           </Content>
         </Route>
         {/* <Route path={`/circuits/:circuit_id`}>
@@ -190,7 +191,7 @@ formRef = React.createRef<FormInstance>();
    }
 
 
-  createQuery = (form: FormValues): string => {
+  createFormatedQuery = (form: FormValues): string => {
     return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID
                                       , CIRCUIT_SHORTNAME
                                       , CIRCUIT_LONGNAME
@@ -212,6 +213,10 @@ formRef = React.createRef<FormInstance>();
                                       , ${form.groupID}
                                       , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
                                       );`;
+  }
+
+  createUnformattedQuery = (form: FormValues): string => {
+    return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL, '${form.circuitShortname}', '${form.circuitLongname}', to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)', '${form.treeID}', '${form.calendar}', '${form.product}', ${form.groupID}, (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD'));`;
   }
 
   generateID = () => {
