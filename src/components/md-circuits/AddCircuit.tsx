@@ -23,7 +23,7 @@ const tailLayout = {
 };
 
 interface AddCircuitState {
-  queryHistory: FormValues[],
+  circuitsHistory: FormValues[],
   displayResults: boolean,
 }
 
@@ -34,15 +34,15 @@ formRef = React.createRef<FormInstance>();
   constructor(props: any){
     super(props);
     this.state = {
-      queryHistory: [],
+      circuitsHistory: [],
       displayResults: false
     };
   }
 
   onFinish = (values: FormValues) => {
     values.distributionTime = Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss');
-    const history = this.state.queryHistory.concat(values);
-    this.setState({queryHistory: history});
+    const history = this.state.circuitsHistory.concat(values);
+    this.setState({circuitsHistory: history});
     this.formRef.current?.resetFields();
   }
   
@@ -135,7 +135,7 @@ formRef = React.createRef<FormInstance>();
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button type="primary"  htmlType="submit" >Add Query</Button>
-              { this.state.queryHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
+              { this.state.circuitsHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
                                               : <Button htmlType="button" disabled>Add a query first</Button> 
               }
             </Form.Item>
@@ -144,7 +144,7 @@ formRef = React.createRef<FormInstance>();
             >
               <List 
                   itemLayout="horizontal"
-                  dataSource={this.state.queryHistory}
+                  dataSource={this.state.circuitsHistory}
                   bordered
                   split
                   rowKey={(e) => e.circuitShortname}
@@ -164,11 +164,11 @@ formRef = React.createRef<FormInstance>();
           <ModalCircuit visible={this.state.displayResults} 
                         handleOk= {(e: any) => this.handleOk(e)} 
                         handleCancel= {(e: any) => this.handleCancel(e)} 
-                        queries={this.state.queryHistory.map((e) => this.createQuery(e))}/>
+                        queries={this.state.circuitsHistory.map((e) => this.createQuery(e))}/>
           </Content>
         </Route>
         <Route path={`/circuits/:circuit_id`}>
-          <EditCircuit query={this.state.queryHistory[0]} onFinish={this.onEdit} index={0}/>
+          <EditCircuit query={this.state.circuitsHistory[0]} onFinish={this.onEdit} index={0}/>
         </Route>
       </Switch>
      );
@@ -200,8 +200,8 @@ formRef = React.createRef<FormInstance>();
   }
 
   onEdit = (index: number = 0, form : FormValues) => {
-    const queryHistory = this.state.queryHistory.slice(0, index).concat(form).concat(this.state.queryHistory.slice(index+1))
-    this.setState({queryHistory: queryHistory}); 
+    const queryHistory = this.state.circuitsHistory.slice(0, index).concat(form).concat(this.state.circuitsHistory.slice(index+1))
+    this.setState({circuitsHistory: queryHistory}); 
   }
 
   showModal = () => {
@@ -212,7 +212,7 @@ formRef = React.createRef<FormInstance>();
 
   handleOk = (e: any) => {
     this.setState({
-      queryHistory: [],
+      circuitsHistory: [],
       displayResults: false,
     });
   };
