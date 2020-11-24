@@ -147,14 +147,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                               ]}
             >
                 <Input placeholder="0" style={{width: "calc(10%)" }}/>
-            </Form.Item>
-            {/* <Form.Item {...{wrapperCol: { offset: 9, span: 16 }}}>
-                <Row>
-                  <Col span={3}>
-                    <Button type="primary" htmlType="submit" >Add</Button>
-                  </Col>
-                </Row>
-              </Form.Item> */}
+            <Form.Item>
           </Form>
           </Card>
      );

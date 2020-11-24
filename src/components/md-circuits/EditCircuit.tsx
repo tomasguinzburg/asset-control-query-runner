@@ -143,17 +143,8 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                               ]}
             >
                 <Input style={{width: "calc(10%)" }}/>
+
             </Form.Item>
-            {/* <Form.Item {...tailLayout}>
-            <Row>
-              <Col span={3}>
-                <Button type="primary"  htmlType="submit">Update</Button>
-              </Col>
-              <Col span={1}>
-                <Link to="/circuits"><Button htmlType="button">Cancel</Button></Link>
-              </Col>
-            </Row>
-            </Form.Item> */}
           </Form>
           </Card>
      );
