@@ -137,11 +137,17 @@ formRef = React.createRef<FormInstance>();
                 <Input placeholder="0" style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
-              <Button type="primary"  htmlType="submit" >Add Query</Button>
-              { this.props.circuitsHistory.length > 0 ? <Button htmlType="button" onClick={() => this.showModal()} >Generate SQL</Button> 
-                                                      : <Button htmlType="button" disabled>Add a query first</Button> 
-              }
-            </Form.Item>
+                <Row>
+                  <Col span={3}>
+                    <Button type="primary" htmlType="submit" >Add Query</Button>
+                  </Col>
+                  <Col span={1}>
+                    {this.props.circuitsHistory.length > 0 ? <Button  htmlType="button" onClick={() => this.showModal()} >Show SQL</Button>
+                      : <Button htmlType="button" disabled>Add a query first</Button>
+                    }
+                  </Col>
+                </Row>
+              </Form.Item>
             <Form.Item label="Query List"
                 shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
               >
