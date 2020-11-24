@@ -51,7 +51,7 @@ class MainLayout extends React.Component {
                 <Link to="/circuits">MD_CIRCUITS</Link>
               </Menu.Item>
               <Menu.Item key="/jobs" icon={<ScheduleOutlined />} onClick={this.forceReRender}>
-                MD_JOBS
+                <Link to="/jobs">MD_JOBS</Link>
               </Menu.Item>
               <SubMenu key="/last-order" icon={<PullRequestOutlined />} title="Last Order">
                 <Menu.Item key="/circuits-jobs" onClick={this.forceReRender}>MD_CIRCUITS_JOBS</Menu.Item>

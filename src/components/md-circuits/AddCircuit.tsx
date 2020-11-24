@@ -1,11 +1,11 @@
 import React from 'react';
 import Moment from 'moment';
 
-import { FormValues } from './FormValues';
+import { CircuitFormValues } from './CircuitFormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addCircuit, changeCircuitSelection, clearQueries, deleteCircuit } from '../../store/md-circuits/actions';
+import { addCircuit, changeCircuitSelection, deleteCircuit } from '../../store/md-circuits/actions';
 
 import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row, Card } from 'antd';
 import { FormInstance } from 'antd/lib/form';
@@ -20,8 +20,6 @@ const mapDispatch = {
   addCircuit: addCircuit,
   deleteCircuit: deleteCircuit,
   changeCircuitSelection: changeCircuitSelection,
-
-  clearQueries: clearQueries,
 };
 
 const connector = connect(mapState, mapDispatch)
@@ -39,7 +37,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
     };
   }
 
-  onFinish = (values: FormValues) => {
+  onFinish = (values: CircuitFormValues) => {
     this.props.addCircuit({
       ...values
       , ID: this.generateID()
@@ -123,7 +121,8 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
             <Form.Item label="calendar"
               name="calendar"
               hasFeedback
-              rules={[{ required: true, type: 'string' }]}
+              rules={[{ required: false, type: 'string' }]}
+              initialValue=""
             >
               <Input placeholder="calendar" style={{ width: "calc(10%)" }} />
             </Form.Item>

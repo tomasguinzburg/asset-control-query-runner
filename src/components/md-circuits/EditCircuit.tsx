@@ -3,7 +3,7 @@ import Moment from 'moment';
 
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 
-import { FormValues } from './FormValues';
+import { CircuitFormValues } from './CircuitFormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
@@ -46,7 +46,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
   formRef = React.createRef<FormInstance>();
 
 
-  onFinish = (values: FormValues) => {
+  onFinish = (values: CircuitFormValues) => {
     this.props.editCircuit({ ...values 
                           , ID: this.props.circuit.ID
                           , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
@@ -62,7 +62,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
       style={{width: "calc(100%)"}}
       actions={[
         <CloseCircleFilled onClick={() => this.props.history.push('/circuits')} className="closeCircle" style={{fontSize: "32px"}}/>,
-        <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark"style={{fontSize: "32px"}}/>
+        <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark" style={{fontSize: "32px"}}/>
       ]}
 >
           <Breadcrumb style={{ margin: '16px 0' }}>

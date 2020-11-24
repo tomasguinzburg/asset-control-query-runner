@@ -3,8 +3,8 @@ import { CircuitsState
        , ADD_CIRCUIT
        , EDIT_CIRCUIT
        , DELETE_CIRCUIT
-       , CLEAR_QUERIES,
-       CHANGE_SELECTION
+       , CLEAR_QUERIES
+       , CHANGE_CIRCUIT_SELECTION
        } from './types'
 
 const initialState : CircuitsState = {
@@ -39,7 +39,7 @@ export function circuitsReducer( state : CircuitsState = initialState
     case CLEAR_QUERIES:
       return { ...state, circuitsHistory: [] }
 
-    case CHANGE_SELECTION:
+    case CHANGE_CIRCUIT_SELECTION:
       return { ...state, selected: action.payload}
     default:
       return state;

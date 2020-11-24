@@ -17,7 +17,7 @@ export interface CircuitsState {
 export const ADD_CIRCUIT = 'ADD_CIRCUIT'
 export const EDIT_CIRCUIT = 'EDIT_CIRCUIT'
 export const DELETE_CIRCUIT = 'DELETE_CIRCUIT'
-export const CHANGE_SELECTION = 'CHANGE_SELECTION'
+export const CHANGE_CIRCUIT_SELECTION = 'CHANGE_CIRCUIT_SELECTION'
 export const CLEAR_QUERIES = 'CLEAR_QUERIES'
 
 interface AddCircuitAction {
@@ -40,7 +40,7 @@ interface ClearQueriesAction {
 }
 
 interface ChangeCircuitSelection {
-  type: typeof CHANGE_SELECTION
+  type: typeof CHANGE_CIRCUIT_SELECTION
   payload: number
 }
 

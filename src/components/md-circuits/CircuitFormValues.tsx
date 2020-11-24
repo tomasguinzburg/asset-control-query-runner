@@ -1,4 +1,4 @@
-export type FormValues = {
+export type CircuitFormValues = {
   circuitShortname: string
   circuitLongname: string
   distributionTime: string
