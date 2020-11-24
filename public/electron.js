@@ -4,9 +4,9 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const isDev = require("electron-is-dev");
 
-
+let mainWindow = null;
 const createWindow = () => {
-  let mainWindow = new BrowserWindow({ width: 1440, height: 1024 });
+  mainWindow = new BrowserWindow({ width: 1440, height: 1024 });
   if (isDev)
     mainWindow.webContents.openDevTools()
   mainWindow.loadURL(
@@ -25,7 +25,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-  //if (mainWindow === null) {
+  if (mainWindow === null) {
     createWindow();
-  //}
+  }
 });
