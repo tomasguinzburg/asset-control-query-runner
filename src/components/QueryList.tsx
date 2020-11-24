@@ -1,4 +1,4 @@
-import { Affix, Button, Col, List, Modal, Row, Tooltip } from "antd";
+import { Affix, Button, Card, Col, List, Modal, Row, Tooltip } from "antd";
 import React from "react"
 import { connect, ConnectedProps } from "react-redux";
 import { Link } from "react-router-dom";
@@ -54,11 +54,10 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
 
   render() {
     return (
-      <div>
+      <Card title="Query list">
       <Row>
         <Col span={4}/>
         <Col span={16}>
-        <Title level={5}>Query list:</Title>
         {/* <div style={{maxHeight: "200px", overflowY: "scroll", border: "#fff"}}> */}
           <List
             itemLayout="horizontal"
@@ -120,7 +119,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
       >
         This action cannot be undone
       </Modal>
-      </div>
+      </Card>
     )
   }
 }

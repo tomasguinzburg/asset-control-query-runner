@@ -9,8 +9,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row } from 'antd';
+import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row, Card } from 'antd';
 import { FormInstance } from 'antd/lib/form';
+import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons'
 
 //
 // Styles
@@ -56,17 +57,25 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
   
   render() {
     return (
-          <div>
+      <Card title={`Edit MD_CIRCUITS - ${this.props.circuit.ID}`}
+      bordered={true} 
+      style={{width: "calc(100%)"}}
+      actions={[
+        <CloseCircleFilled onClick={() => this.props.history.push('/circuits')} className="closeCircle" style={{color: "rgb(255,77,79)"}}/>,
+        <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark" style={{color: "rgb(79,210,77)"}}/>
+      ]}
+>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
-            <Breadcrumb.Item>Edit circuit number: {this.props.circuit.ID}</Breadcrumb.Item>
+            <Breadcrumb.Item>Query-runner</Breadcrumb.Item>
+            <Breadcrumb.Item>Edit  MD_CIRCUITS - {this.props.circuit.ID}</Breadcrumb.Item>
           </Breadcrumb>
           <Form
           name="control-ref"
           ref={this.formRef}
           labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
+          wrapperCol={{ span: 16 }}
           onFinish={this.onFinish}
+          size="small"
           initialValues={{
             circuitShortname: this.props.circuit.circuitShortname,
             circuitLongname: this.props.circuit.circuitLongname,
@@ -134,19 +143,9 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                               ]}
             >
                 <Input style={{width: "calc(10%)" }}/>
-            <div style={{marginTop: 10}}>
-              <Row>
-                <Col span={3}>
-                  <Button type="primary" htmlType="submit">Update</Button>
-                </Col>
-                <Col span={1}>
-                  <Link to="/circuits"><Button htmlType="button">Cancel</Button></Link>
-                </Col>
-              </Row>
-            </div>
             </Form.Item>
           </Form>
-          </div>
+          </Card>
      );
    }
 

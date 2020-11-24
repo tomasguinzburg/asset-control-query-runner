@@ -7,8 +7,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addCircuit, changeCircuitSelection, clearQueries, deleteCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row } from 'antd';
+import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row, Card } from 'antd';
 import { FormInstance } from 'antd/lib/form';
+import { PlusCircleFilled } from '@ant-design/icons'
 
 
 const mapState = (state: RootState) => ({
@@ -70,10 +71,16 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
 
   render() {
     return (
-          <div>
+          <Card title="Add MD_CIRCUITS" 
+                bordered={true} 
+                style={{width: "calc(100%)"}}
+                actions={[
+                  <PlusCircleFilled onClick={() => this.formRef.current?.submit()}/>
+                ]}
+          >
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
-            <Breadcrumb.Item>New Circuit</Breadcrumb.Item>
+            <Breadcrumb.Item>Query-runner</Breadcrumb.Item>
+            <Breadcrumb.Item>Add MD_CIRCUITS</Breadcrumb.Item>
           </Breadcrumb>
           <Form
           name="control-ref"
@@ -81,6 +88,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           onFinish={this.onFinish}
+          size="small"
           >
             <Form.Item label="circuit_shortname" 
                    name="circuitShortname"
@@ -139,16 +147,9 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                               ]}
             >
                 <Input placeholder="0" style={{width: "calc(10%)" }}/>
-                <div style={{marginTop: 10}}>
-                <Row>
-                  <Col span={3}>
-                    <Button type="primary" htmlType="submit" >Add</Button>
-                  </Col>
-                </Row>
-                </div>
-              </Form.Item>
+            </Form.Item>
           </Form>
-          </div>
+          </Card>
      );
    }
 }
