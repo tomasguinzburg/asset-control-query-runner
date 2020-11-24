@@ -61,8 +61,8 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
       bordered={true} 
       style={{width: "calc(100%)"}}
       actions={[
-        <CloseCircleFilled onClick={() => this.props.history.push('/circuits')} className="closeCircle" style={{color: "rgb(255,77,79)"}}/>,
-        <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark" style={{color: "rgb(79,210,77)"}}/>
+        <CloseCircleFilled onClick={() => this.props.history.push('/circuits')} className="closeCircle" style={{fontSize: "32px"}}/>,
+        <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark"style={{fontSize: "32px"}}/>
       ]}
 >
           <Breadcrumb style={{ margin: '16px 0' }}>

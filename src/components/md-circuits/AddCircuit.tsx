@@ -45,7 +45,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                           , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
                           });
 
-    React.createRef<FormInstance>().current?.resetFields();
+    this.formRef.current?.resetFields();
   }
   
   generateID = () => this.props.circuitsHistory.sort((a, b) => (a.ID - b.ID))
@@ -75,7 +75,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                 bordered={true} 
                 style={{width: "calc(100%)"}}
                 actions={[
-                  <PlusCircleFilled onClick={() => this.formRef.current?.submit()}/>
+                  <PlusCircleFilled onClick={() => this.formRef.current?.submit()} style={{fontSize: "32px"}}/>
                 ]}
           >
           <Breadcrumb style={{ margin: '16px 0' }}>
