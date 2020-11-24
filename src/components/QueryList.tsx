@@ -71,20 +71,14 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
               <List.Item>
                 <List.Item.Meta
                   avatar={<Button shape="circle" icon={<DatabaseFilled />} />}
-                  title={<Link to={path.join('circuits', `${index}`)} onClick={() => this.props.changeCircuitSelection(index)}>{"MD_CIRCUITS: " + index + ": " + item.circuitShortname}</Link> }
+                  title={<Link to={path.join('circuits', `${index}`)} onClick={() => this.props.changeCircuitSelection(index)}>{"MD_CIRCUITS - " + index + ": " + item.circuitShortname}</Link> }
                   description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
                 />
                 <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)} />
               </List.Item>
             )}
           >
-          </List>
-        {/* </div> */}
-        {/* <div style={{display: 'flex', textAlign: 'center', marginLeft: "auto", marginRight: "auto", float: "right"}}>
-          <Button htmlType="button" type="ghost" onClick={() => this.showResultModal()} >Show SQL</Button>
-        </div> */}
-       
-        
+          </List>     
         </Col>
         <div style={{ marginRight:10, float: 'right', display: 'flex', alignItems: "flex-end"}}>
           <Col span={2} >
