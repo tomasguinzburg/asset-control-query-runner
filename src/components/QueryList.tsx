@@ -12,6 +12,7 @@ import { createFormatedQuery, createUnformattedQuery } from "./md-circuits/Parse
 
 const mapState = (state: RootState) => ({
   circuitsHistory: state.circuits.circuitsHistory,
+  jobsHistory: state.jobs.jobsHistory
 });
 
 const mapDispatch = {
