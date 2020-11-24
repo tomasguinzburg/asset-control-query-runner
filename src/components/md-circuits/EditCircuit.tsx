@@ -83,14 +83,14 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-                <Input style={{width: "calc(70%)" }}/>
+                <Input style={{width: "calc(25%)" }}/>
             </Form.Item>
             <Form.Item label="circuit_longname" 
                       name="circuitLongname"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Input style={{width: "calc(100%)" }}/>
+              <Input style={{width: "calc(40%)" }}/>
             </Form.Item>
             <Form.Item label="distribution_time" 
                    name="distributionTime"
@@ -104,21 +104,21 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input style={{width: "calc(20%)" }}/>
+                <Input style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item label="calendar" 
                       name="calendar"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input style={{width: "calc(20%)" }}/>
+                <Input style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item label="product" 
                       name="product"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input style={{width: "calc(100%)" }}/>
+                <Input style={{width: "calc(40%)" }}/>
             </Form.Item>
             <Form.Item label="group_id" 
                       name="groupID"
@@ -134,7 +134,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                                 })
                               ]}
             >
-                <Input style={{width: "calc(20%)" }}/>
+                <Input style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button type="primary"  htmlType="submit">Update query</Button>

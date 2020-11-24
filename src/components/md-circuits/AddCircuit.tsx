@@ -83,14 +83,14 @@ formRef = React.createRef<FormInstance>();
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-                <Input placeholder="circuit_shortname" style={{width: "calc(70%)" }}/>
+                <Input placeholder="circuit_shortname" style={{width: "calc(25%)" }}/>
             </Form.Item>
             <Form.Item label="circuit_longname" 
                       name="circuitLongname"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Input placeholder="circuit_longname" style={{width: "calc(100%)" }}/>
+              <Input placeholder="circuit_longname" style={{width: "calc(40%)" }}/>
             </Form.Item>
             <Form.Item label="distribution_time" 
                    name="distributionTime"
@@ -104,21 +104,21 @@ formRef = React.createRef<FormInstance>();
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input placeholder="tree_id" style={{width: "calc(20%)" }} />
+                <Input placeholder="tree_id" style={{width: "calc(10%)" }} />
             </Form.Item>
             <Form.Item label="calendar" 
                       name="calendar"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input placeholder="calendar" style={{width: "calc(20%)" }}/>
+                <Input placeholder="calendar" style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item label="product" 
                       name="product"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input placeholder="product" style={{width: "calc(100%)" }}/>
+                <Input placeholder="product" style={{width: "calc(40%)" }}/>
             </Form.Item>
             <Form.Item label="group_id" 
                       name="groupID"
@@ -134,7 +134,7 @@ formRef = React.createRef<FormInstance>();
                                 })
                               ]}
             >
-                <Input placeholder="0" style={{width: "calc(20%)" }}/>
+                <Input placeholder="0" style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
                 <Row>
