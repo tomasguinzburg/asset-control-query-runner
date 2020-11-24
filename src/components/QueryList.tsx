@@ -68,7 +68,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
             split
             size="small"
             rowKey={(e) => e.circuitShortname}
-            style={{overflowY: "scroll", maxHeight: "200px"}}
+            style={{overflowY: "scroll", maxHeight: "185px"}}
             renderItem={(item, index) => (
               <List.Item>
                 <List.Item.Meta
