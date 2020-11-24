@@ -77,7 +77,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
           bordered={true}
           style={{ width: "calc(100%)" }}
           actions={[
-            <PlusCircleFilled onClick={() => this.formRef.current?.submit()} />
+            <PlusCircleFilled onClick={() => this.formRef.current?.submit()} style={{fontSize: "32px"}}/>
           ]}
         >
           <Breadcrumb style={{ margin: '16px 0' }}>
