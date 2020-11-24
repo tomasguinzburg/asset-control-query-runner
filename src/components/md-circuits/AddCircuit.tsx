@@ -147,7 +147,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
                               ]}
             >
                 <Input placeholder="0" style={{width: "calc(10%)" }}/>
-            <Form.Item>
+            </Form.Item>
           </Form>
           </Card>
      );

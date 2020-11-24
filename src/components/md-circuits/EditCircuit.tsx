@@ -73,7 +73,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
           name="control-ref"
           ref={this.formRef}
           labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
+          wrapperCol={{ span: 16 }}
           onFinish={this.onFinish}
           size="small"
           initialValues={{
@@ -143,7 +143,6 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                               ]}
             >
                 <Input style={{width: "calc(10%)" }}/>
-
             </Form.Item>
           </Form>
           </Card>
