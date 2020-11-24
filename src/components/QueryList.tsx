@@ -54,6 +54,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
 
   render() {
     return (
+      <div style={{marginTop: 10}}>
       <Card title="Query list">
       <Row>
         <Col span={4}/>
@@ -120,6 +121,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
         This action cannot be undone
       </Modal>
       </Card>
+      </div>
     )
   }
 }
