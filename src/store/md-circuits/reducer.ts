@@ -3,7 +3,7 @@ import { CircuitsState
        , ADD_CIRCUIT
        , EDIT_CIRCUIT
        , DELETE_CIRCUIT
-       , CLEAR_CIRCUITS,
+       , CLEAR_QUERIES,
        CHANGE_SELECTION
        } from './types'
 
@@ -36,7 +36,7 @@ export function circuitsReducer( state : CircuitsState = initialState
              , circuitsHistory: state.circuitsHistory.filter(circuit => circuit.ID !== action.payload)
                                                      .map((c, index) => ({ ...c, ID: index }))
              }
-    case CLEAR_CIRCUITS:
+    case CLEAR_QUERIES:
       return { ...state, circuitsHistory: [] }
 
     case CHANGE_SELECTION:

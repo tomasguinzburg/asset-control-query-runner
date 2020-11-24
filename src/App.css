@@ -92,8 +92,11 @@
   max-width: 100em;
 }
 
-.deleteButton {
-  float: 'right' !important;
-  display: 'flex' !important;
-  align-items: 'flex-end' !important;
+.ant-btn-ghost {
+    color: #fff !important;
+    background: #52c41a !important;
+    border-color: #52c41a !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }

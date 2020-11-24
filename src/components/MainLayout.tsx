@@ -7,8 +7,10 @@ import {
   , ContainerOutlined
   , SisternodeOutlined
 } from '@ant-design/icons';
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import AppRouter from './AppRouter';
+import QueryList from './QueryList';
+import Title from 'antd/lib/typography/Title';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -21,7 +23,6 @@ class MainLayout extends React.Component {
   };
 
   onCollapse = (collapsed: any) => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 
@@ -47,8 +48,7 @@ class MainLayout extends React.Component {
                 <Menu.Item key="/systems" onClick={this.forceReRender}>MD_SYSTEMS</Menu.Item>
               </SubMenu>
               <Menu.Item key="/circuits" onClick={this.forceReRender} icon={<BoxPlotOutlined />}>
-              <Link to="/circuits"/>
-                MD_CIRCUITS
+                <Link to="/circuits">MD_CIRCUITS</Link>
               </Menu.Item>
               <Menu.Item key="/jobs" icon={<ScheduleOutlined />} onClick={this.forceReRender}>
                 MD_JOBS
@@ -62,9 +62,10 @@ class MainLayout extends React.Component {
             </Menu>
           </Sider>
             <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }} />
-            <Content>
+            <Header className="site-layout-background" style={{ padding: "16px" }}> <Title level={3}>ASSET-CONTROL: QUERY-RUNNER</Title>  </Header>
+            <Content style={{ margin: '0 16px' }}>
               <AppRouter/>
+              <QueryList/>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Qaracter ©2020</Footer>
           </Layout>

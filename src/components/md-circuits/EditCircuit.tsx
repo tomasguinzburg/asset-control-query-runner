@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'moment';
 
-import { BrowserRouter as Router, Route, Link, Switch, Redirect, useHistory} from 'react-router-dom';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 
 import { FormValues } from './FormValues';
 
@@ -9,13 +9,12 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, Col, DatePicker } from 'antd';
+import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 
 //
 // Styles
 //
-const {Content} = Layout;
 const tailLayout = {
   wrapperCol: { offset: 9, span: 16 },
 };
@@ -57,10 +56,10 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
   
   render() {
     return (
-          <Content style={{ margin: '0 16px' }}>
+          <div>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Query Runner</Breadcrumb.Item>
-            <Breadcrumb.Item>Edit query with ID: {this.props.circuit.ID}</Breadcrumb.Item>
+            <Breadcrumb.Item>Edit circuit number: {this.props.circuit.ID}</Breadcrumb.Item>
           </Breadcrumb>
           <Form
           name="control-ref"
@@ -137,10 +136,17 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                 <Input style={{width: "calc(10%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
-              <Button type="primary"  htmlType="submit">Update query</Button>
+            <Row>
+              <Col span={3}>
+                <Button type="primary"  htmlType="submit">Update</Button>
+              </Col>
+              <Col span={1}>
+                <Link to="/circuits"><Button htmlType="button">Cancel</Button></Link>
+              </Col>
+            </Row>
             </Form.Item>
           </Form>
-          </Content>
+          </div>
      );
    }
 

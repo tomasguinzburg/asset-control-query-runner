@@ -6,7 +6,7 @@ const isDev = require("electron-is-dev");
 
 
 const createWindow = () => {
-  let mainWindow = new BrowserWindow({ width: 1440, height: 960 });
+  let mainWindow = new BrowserWindow({ width: 1440, height: 1024 });
   if (isDev)
     mainWindow.webContents.openDevTools()
   mainWindow.loadURL(
