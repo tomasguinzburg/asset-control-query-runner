@@ -1,5 +1,7 @@
-export interface Job {
-  ID: number
+import { QueryGenerator } from '../types'
+import { ClearQueriesAction } from '../types'
+
+export interface Job extends QueryGenerator {
   jobShortname: string
   jobLongname: string
   jobHandling: string
@@ -12,7 +14,7 @@ export interface Job {
 }
 
 export interface JobState {
-  jobsHistory: Job[],
+  jobsHistory: QueryGenerator[],
   selected: number
 }
 
@@ -36,9 +38,9 @@ interface DeleteJobAction {
   payload: number
 }
 
-interface ChangeJobSelection {
+export interface ChangeJobSelection {
   type: typeof CHANGE_JOB_SELECTION
   payload: number
 }
 
-export type JobActionTypes = AddJobAction | EditJobAction | DeleteJobAction | ChangeJobSelection
+export type JobActionTypes = AddJobAction | EditJobAction | DeleteJobAction | ChangeJobSelection | ClearQueriesAction

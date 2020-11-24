@@ -1,5 +1,7 @@
-export interface Circuit {
-  ID: number
+import { QueryGenerator } from '../types'
+import { ClearQueriesAction } from '../types'
+
+export interface Circuit extends QueryGenerator {
   circuitShortname: string
   circuitLongname: string
   distributionTime: string
@@ -10,7 +12,7 @@ export interface Circuit {
 }
 
 export interface CircuitsState {
-  circuitsHistory: Circuit[],
+  circuitsHistory: QueryGenerator[],
   selected: number
 }
 
@@ -18,7 +20,6 @@ export const ADD_CIRCUIT = 'ADD_CIRCUIT'
 export const EDIT_CIRCUIT = 'EDIT_CIRCUIT'
 export const DELETE_CIRCUIT = 'DELETE_CIRCUIT'
 export const CHANGE_CIRCUIT_SELECTION = 'CHANGE_CIRCUIT_SELECTION'
-export const CLEAR_QUERIES = 'CLEAR_QUERIES'
 
 interface AddCircuitAction {
   type: typeof ADD_CIRCUIT
@@ -35,11 +36,7 @@ interface DeleteCircuitAction {
   payload: number
 }
 
-interface ClearQueriesAction {
-  type: typeof CLEAR_QUERIES
-}
-
-interface ChangeCircuitSelection {
+export interface ChangeCircuitSelection {
   type: typeof CHANGE_CIRCUIT_SELECTION
   payload: number
 }

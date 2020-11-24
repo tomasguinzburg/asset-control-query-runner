@@ -1,3 +1,4 @@
+import { CLEAR_QUERIES } from '../types'
 import { JobState
   , JobActionTypes
   , ADD_JOB
@@ -37,6 +38,8 @@ case DELETE_JOB:
         }
 case CHANGE_JOB_SELECTION:
  return { ...state, selected: action.payload}
+case CLEAR_QUERIES:
+  return {...state, jobsHistory: []}
 default:
  return state;
 }

@@ -5,11 +5,13 @@ import { CircuitFormValues } from './CircuitFormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addCircuit, changeCircuitSelection, deleteCircuit } from '../../store/md-circuits/actions';
+import { addCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, Button, Col, DatePicker, Row, Card } from 'antd';
+import { Breadcrumb, Form, Input, DatePicker, Card } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { PlusCircleFilled } from '@ant-design/icons'
+
+import {createFormatedQuery, createUnformatedQuery } from './ParseCircuit'
 
 
 const mapState = (state: RootState) => ({
@@ -18,8 +20,6 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   addCircuit: addCircuit,
-  deleteCircuit: deleteCircuit,
-  changeCircuitSelection: changeCircuitSelection,
 };
 
 const connector = connect(mapState, mapDispatch)
@@ -38,10 +38,18 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
   }
 
   onFinish = (values: CircuitFormValues) => {
+    let ID = this.generateID() 
     this.props.addCircuit({
       ...values
-      , ID: this.generateID()
+      , ID: ID
       , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
+      , name: () =>values.circuitShortname
+      , description: () => values.toString()
+      , tag: () => "MD_CIRCUITS -" 
+      , createFormatedQuery: () => createFormatedQuery(values)
+      , createUnformatedQuery: () => createUnformatedQuery(values)
+      , path: () => `/circuits/${ID}`
+      , type: () => "circuit"
     });
 
     this.formRef.current?.resetFields();
@@ -73,7 +81,8 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
       <div style={{marginTop: 10}}>
         <Card title="Add MD_CIRCUITS"
           bordered={true}
-          style={{ width: "calc(100%)" }}
+          size="small"
+          style={{ width: "calc(100%)",}}
           actions={[
             <PlusCircleFilled onClick={() => this.formRef.current?.submit()} className="ant-btn-piola" style={{ fontSize: "32px"}}/>
           ]}
