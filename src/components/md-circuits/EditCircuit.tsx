@@ -3,17 +3,14 @@ import Moment from 'moment';
 
 import { BrowserRouter as Router, Route, Link, Switch, Redirect, useHistory} from 'react-router-dom';
 
-import ModalCircuit from '../results/ModalCircuit';
 import { FormValues } from './FormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, Col, DatePicker } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { DatabaseFilled, CloseCircleFilled } from '@ant-design/icons';
-import { circuitsReducer } from '../../store/md-circuits/reducer';
 
 //
 // Styles
@@ -114,7 +111,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-                <Input style={{width: "calc(50%)" }}/>
+                <Input style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item label="product" 
                       name="product"
@@ -147,61 +144,6 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
      );
    }
 
-
-  createFormatedQuery = (form: FormValues): string => {
-    return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID
-                                      , CIRCUIT_SHORTNAME
-                                      , CIRCUIT_LONGNAME
-                                      , DISTRIBUTION_TIME
-                                      , TIME_ZONE_ID
-                                      , TREE_ID
-                                      , CALENDAR
-                                      , PRODUCT
-                                      , GROUP_ID
-                                      , TYPE_ID
-                                      )
-                               values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL
-                                      , '${form.circuitShortname}'
-                                      , '${form.circuitLongname}'
-                                      , to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)'
-                                      , '${form.treeID}'
-                                      , '${form.calendar}'
-                                      , '${form.product}'
-                                      , ${form.groupID}
-                                      , (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD')
-                                      );`;
-  }
-
-  createUnformattedQuery = (form: FormValues): string => {
-    return `insert into SAN_AC_MR_PRO.MD_CIRCUITS ( CIRCUIT_ID, CIRCUIT_SHORTNAME, CIRCUIT_LONGNAME, DISTRIBUTION_TIME, TIME_ZONE_ID, TREE_ID, CALENDAR, PRODUCT, GROUP_ID, TYPE_ID) values ( SAN_AC_MR_PRO.CIRCUIT_SEQ.NEXTVAL, '${form.circuitShortname}', '${form.circuitLongname}', to_timestamp('${form.distributionTime}', 'yyyy/mm/dd HH24:mi:ss)', '${form.treeID}', '${form.calendar}', '${form.product}', ${form.groupID}, (select TYPE_ID from SAN_AC_MR_PRO.MD_TYPES where TYPE_SHORTNAME = 'MD'));`;
-  }
-
-  onEdit = (index: number = 0, form : FormValues) => {
-    // const queryHistory = this.state.circuits.slice(0, index).concat(form).concat(this.state.circuits.slice(index+1))
-    // this.setState({circuitsHistory: queryHistory}); 
-  }
-
-  showModal = () => {
-    this.setState({
-      displayResults: true,
-    });
-  };
-
-  handleOk = (e: any) => {
-    this.setState({     
-      displayResults: false,
-    });
-  };
-
-  handleCancel = (e: any) => {
-    this.setState({
-      displayResults: false,
-    });
-  };
-
-  isNumeric = (s: string) => {
-    return !isNaN(parseInt(s));
-  }
 }
 
 export default connector(EditCircuit)    //El AddCircuit que se exporta es igual pero diferente

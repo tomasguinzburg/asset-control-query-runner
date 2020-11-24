@@ -12,9 +12,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addCircuit, changeCircuitSelection, clearCircuits, deleteCircuit } from '../../store/md-circuits/actions';
 
-import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker } from 'antd';
+import { Layout, Breadcrumb, Form, Input, Button, List, Col, DatePicker, Row, Tooltip } from 'antd';
 import { FormInstance } from 'antd/lib/form';
-import { DatabaseFilled, CloseCircleFilled } from '@ant-design/icons';
+import { DatabaseFilled, CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
 
 //
 // Styles
@@ -83,18 +83,14 @@ formRef = React.createRef<FormInstance>();
                    hasFeedback
                    rules={[{ required: true, type: 'string' }]}
         >
-              <Col span={6}>
-                <Input placeholder="circuit_shortname" />
-              </Col>
+                <Input placeholder="circuit_shortname" style={{width: "calc(70%)" }}/>
             </Form.Item>
             <Form.Item label="circuit_longname" 
                       name="circuitLongname"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={10}>
-              <Input placeholder="circuit_longname" />
-              </Col>
+              <Input placeholder="circuit_longname" style={{width: "calc(100%)" }}/>
             </Form.Item>
             <Form.Item label="distribution_time" 
                    name="distributionTime"
@@ -108,28 +104,21 @@ formRef = React.createRef<FormInstance>();
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={4}>
-                <Input placeholder="tree_id" />
-              </Col>
+                <Input placeholder="tree_id" style={{width: "calc(20%)" }} />
             </Form.Item>
             <Form.Item label="calendar" 
                       name="calendar"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-              <Col span={4}>
-                <Input placeholder="calendar" />
-              </Col>
+                <Input placeholder="calendar" style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item label="product" 
                       name="product"
                       hasFeedback
                       rules={[{ required: true, type: 'string' }]}
             >
-
-              <Col span={10}>
-                <Input placeholder="product" />
-              </Col>
+                <Input placeholder="product" style={{width: "calc(100%)" }}/>
             </Form.Item>
             <Form.Item label="group_id" 
                       name="groupID"
@@ -145,9 +134,7 @@ formRef = React.createRef<FormInstance>();
                                 })
                               ]}
             >
-              <Col span={3}>
-                <Input placeholder="0"/>
-              </Col>
+                <Input placeholder="0" style={{width: "calc(20%)" }}/>
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button type="primary"  htmlType="submit" >Add Query</Button>
@@ -156,28 +143,42 @@ formRef = React.createRef<FormInstance>();
               }
             </Form.Item>
             <Form.Item label="Query List"
-                      shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
-            >
-              <List 
-                  itemLayout="horizontal"
-                  dataSource={this.props.circuitsHistory}
-                  bordered
-                  split
+                shouldUpdate={(prevValues, curValues) => prevValues.history !== curValues.history}
+              >
+                <Row>
+                  <Col span={22}>
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={this.props.circuitsHistory}
+                      bordered
+                      split
+                      size="small"
+                      rowKey={(e) => e.circuitShortname}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <List.Item.Meta
+                            avatar={<Button shape="circle" icon={<DatabaseFilled />} />}
+                            title={<Link to={path.join('circuits', `${index}`)} onClick={() => this.props.changeCircuitSelection(index)}>{"Query " + index + ": " + item.circuitShortname}</Link> }
+                            description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
+                          />
+                          <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)} />
+                        </List.Item>
+                      )}
+                    >
+                    </List>
+                  </Col>
 
-                  size="small"
-                  rowKey={(e) => e.circuitShortname}
-                  renderItem={(item, index) => (
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={<Button shape="circle" icon={<DatabaseFilled />}/>}
-                        title={<Link to={path.join('circuits', `${index}`)} onClick={() => this.props.changeCircuitSelection(index)}>{"Query " + index + ": " + item.circuitShortname}</Link> }
-                        description={`circuit_shortname: ${item.circuitShortname}, circuit_longname: ${item.circuitLongname}, calendar:${item.calendar}, distribution_time: ${item.distributionTime}, tree_id: ${item.treeID}, group_id: ${item.groupID}, product: ${item.product}`}
-                      />
-                      <CloseCircleFilled className="removeQuery" onClick={() => this.props.deleteCircuit(item.ID)}/>
-                    </List.Item>
-                  )}
-                />
-          </Form.Item>
+                  <div style={{ marginLeft:10, float: 'right', display: 'flex', alignItems: "flex-end" }}>
+                    <Col span={2} >
+                      {this.props.circuitsHistory.length > 0 ?
+                        <Tooltip title="Clear queue">
+                          <Button danger type="primary" icon={<DeleteOutlined />} onClick={this.props.clearCircuits} />
+                        </Tooltip> : ""
+                      }
+                    </Col>
+                  </div>
+                </Row>
+              </Form.Item>
           </Form>
 
           <ModalCircuit visible={this.state.displayResults} 
