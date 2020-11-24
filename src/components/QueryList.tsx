@@ -81,22 +81,26 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
           >
           </List>
         {/* </div> */}
-        <div style={{display: 'flex', textAlign: 'center', marginLeft: "auto", marginRight: "auto", float: "right"}}>
+        {/* <div style={{display: 'flex', textAlign: 'center', marginLeft: "auto", marginRight: "auto", float: "right"}}>
           <Button htmlType="button" type="ghost" onClick={() => this.showResultModal()} >Show SQL</Button>
-        </div>
+        </div> */}
        
-        <div style={{ marginRight:32, float: 'right', display: 'flex', alignItems: "flex-end", marginBottom: "32px"}}>
+        
+        </Col>
+        <div style={{ marginRight:10, float: 'right', display: 'flex', alignItems: "flex-end"}}>
           <Col span={2} >
             {this.props.circuitsHistory.length > 0 ?
             <div>
+              <Tooltip title="Show SQL">
+                <Button htmlType="button" type="primary" icon={<DatabaseFilled/>} onClick={() => this.showResultModal()} ></Button>
+              </Tooltip>
               <Tooltip title="Clear queue">
                 <Button danger type="primary" icon={<DeleteOutlined />} onClick={() => this.setState({displayDanger: true})} />
-              </Tooltip> 
-              </div>: "" 
+              </Tooltip>   
+            </div>: "" 
             }
           </Col>
         </div>
-        </Col>
       </Row>
       <ModalCircuit visible={this.state.displayResults} 
                     handleOk= {(e: any) => this.handleOkResultModal(e)} 
