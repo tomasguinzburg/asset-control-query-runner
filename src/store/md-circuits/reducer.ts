@@ -1,9 +1,9 @@
+import { CLEAR_QUERIES } from '../types'
 import { CircuitsState
        , CircuitsActionTypes
        , ADD_CIRCUIT
        , EDIT_CIRCUIT
        , DELETE_CIRCUIT
-       , CLEAR_QUERIES
        , CHANGE_CIRCUIT_SELECTION
        } from './types'
 

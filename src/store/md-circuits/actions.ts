@@ -1,4 +1,5 @@
-import { Circuit, ADD_CIRCUIT, EDIT_CIRCUIT, DELETE_CIRCUIT, CircuitsActionTypes, CLEAR_QUERIES, CHANGE_CIRCUIT_SELECTION } from './types'
+import { CLEAR_QUERIES } from '../types'
+import { Circuit, ADD_CIRCUIT, EDIT_CIRCUIT, DELETE_CIRCUIT, CircuitsActionTypes, CHANGE_CIRCUIT_SELECTION } from './types'
 
 export function addCircuit(circuit: Circuit) : CircuitsActionTypes {
   return {

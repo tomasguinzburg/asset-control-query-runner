@@ -1,14 +1,14 @@
 import React from 'react';
-import Moment from 'moment';
 
 import { JobFormValues } from './JobFormValues';
 
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
-import { addJob, changeJobSelection, deleteJob } from '../../store/md-jobs/actions';
-import { Breadcrumb, Form, Input, DatePicker, Card } from 'antd';
+import { addJob } from '../../store/md-jobs/actions';
+import { Breadcrumb, Form, Input, Card } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { PlusCircleFilled } from '@ant-design/icons'
+import { createFormatedQuery, createUnformatedQuery } from './ParseJob';
 
 
 const mapState = (state: RootState) => ({
@@ -17,8 +17,6 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   addJob: addJob,
-  deleteJob: deleteJob,
-  changeJobSelection: changeJobSelection
 };
 
 const connector = connect(mapState, mapDispatch)
@@ -37,10 +35,17 @@ class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }
   }
 
   onFinish = (values: JobFormValues) => {
-    this.props.addJob({
-      ...values
-      , ID: this.generateID()
-    });
+    let ID = this.generateID();
+    this.props.addJob({ ...values
+                      , ID: ID
+                      , name: () => values.jobShortname
+                      , description: () => values.toString()
+                      , tag: () => "MD_JOBS -" 
+                      , createFormatedQuery: () => createFormatedQuery(values)
+                      , createUnformatedQuery: () => createUnformatedQuery(values)
+                      , path: () => `/jobs/${ID}`
+                      , type: () => "job"
+                      });
 
     this.formRef.current?.resetFields();
   }
@@ -71,7 +76,8 @@ class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }
       <div style={{ marginTop: 10 }}>
         <Card title="Add MD_JOBS"
           bordered={true}
-          style={{ width: "calc(100%)" }}
+          size="small"
+          style={{ width: "calc(100%)"}}
           actions={[
             <PlusCircleFilled onClick={() => this.formRef.current?.submit()} className="ant-btn-piola" style={{ fontSize: "32px" }} />
           ]}

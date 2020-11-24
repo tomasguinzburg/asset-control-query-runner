@@ -15,7 +15,7 @@ const AppRouter = () : any => {
         <Route exact path="/jobs">
           <AddJob />
         </Route>
-        <Route path="jobs/:jobID" component={EditJob}></Route>
+        <Route path="/jobs/:jobID" component={EditJob}></Route>
       </Switch>
     )
 }
