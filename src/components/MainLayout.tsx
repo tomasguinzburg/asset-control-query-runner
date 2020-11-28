@@ -36,7 +36,10 @@ class MainLayout extends React.Component {
     return (
         <Layout style={{ minHeight: '100vh' }}>
           <Sider theme='dark'collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-            <div className="logo" />
+            {
+              collapsed ? <div className="logo2" /> : <div className="logo" />
+
+            }
             <Menu theme="dark" defaultSelectedKeys={['/'+href]} selectedKeys={['/'+href]} mode="inline">
             <SubMenu key="/order-0" icon={<ContainerOutlined />} title="Order 0">
                 <Menu.Item key="/types" onClick={this.forceReRender}>MD_TYPES</Menu.Item>

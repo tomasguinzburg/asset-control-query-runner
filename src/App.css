@@ -78,12 +78,13 @@
   height: 32px;
   margin: 16px;
   /* background: rgb(255, 255, 255); */
-  content: url('qaracterlogo.png');
+  content: url('qlogo2.png');
+
 }
 
-.logoqaracter {
+.logo2 {
   height: 32px;
-  margin: 16px;
+  margin: 30px;
   content: url('qaracterlogo.png');
 }
 
