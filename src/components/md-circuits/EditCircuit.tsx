@@ -6,7 +6,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, DatePicker, Card } from 'antd';
+import { Breadcrumb, Form, Input, DatePicker, Card, PageHeader } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons'
 import { createFormatedQuery, createUnformatedQuery } from './ParseCircuit';
@@ -63,12 +63,14 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
     if (this.props.circuit !== undefined)
       return (
         <div style={{marginTop: 10}}>
-        <Card title={`Edit MD_CIRCUITS - ${this.props.circuit.ID}`}
+        <PageHeader title="Edit"
+        onBack={() => this.props.history.push('/circuits')}>
+        <Card
+        title={`MD_CIRCUITS - ${this.props.circuit.ID}`}
         bordered={true} 
         style={{width: "calc(100%)"}}
         size="small"
         actions={[
-          <CloseCircleFilled onClick={() => this.props.history.push('/circuits')} className="closeCircle" style={{fontSize: "32px"}}/>,
           <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark" style={{fontSize: "32px"}}/>
         ]}
   >
@@ -153,6 +155,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
               </Form.Item>
             </Form>
             </Card>
+            </PageHeader>
             </div>
       );
     this.props.history.push('/')
