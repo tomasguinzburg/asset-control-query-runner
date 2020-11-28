@@ -75,7 +75,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                     else if (item.type() === "job")
                       return this.props.changeJobSelection(item.ID)
                   }}>{item.tag() + item.ID + ": " + item.name()}</Link> }
-                  description={`${item.description()}`}
+                  description={item.description()}
                 />
                 <CloseCircleFilled className="removeQuery" onClick={() => {
                   if (item.type() === "circuit")

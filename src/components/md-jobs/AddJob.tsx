@@ -39,7 +39,9 @@ class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }
     this.props.addJob({ ...values
                       , ID: ID
                       , name: () => values.jobShortname
-                      , description: () => values.toString()
+                      , description: () => values.jobLongname + ", " + values.jobHandling + ", " + values.configADO + ", " 
+                      + values.listID + ", " + values.templateID + ", " + values.sourceShortname 
+                      + ", " + values.uproc + ", " + values.calendar
                       , tag: () => "MD_JOBS -" 
                       , createFormatedQuery: () => createFormatedQuery(values)
                       , createUnformatedQuery: () => createUnformatedQuery(values)

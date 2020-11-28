@@ -35,7 +35,7 @@ class MainLayout extends React.Component {
     const { collapsed } = this.state;
     return (
         <Layout style={{ minHeight: '100vh' }}>
-          <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+          <Sider theme='dark'collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['/'+href]} selectedKeys={['/'+href]} mode="inline">
             <SubMenu key="/order-0" icon={<ContainerOutlined />} title="Order 0">
@@ -62,7 +62,11 @@ class MainLayout extends React.Component {
             </Menu>
           </Sider>
             <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: "16px" }}> <Title level={3}>ASSET-CONTROL: QUERY-RUNNER</Title>  </Header>
+            <Header className="site-layout-background" style={{ padding: "16px" }}> 
+              <Title level={3}>
+                ASSET-CONTROL: QUERY-RUNNER
+              </Title>  
+            </Header>
             <Content style={{ margin: '0 16px' }}>
               <AppRouter/>
               <QueryList/>
