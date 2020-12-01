@@ -6,4 +6,5 @@ export type CircuitFormValues = {
   calendar: string
   product: string
   groupID: string
+  typeShortname: string
 }

@@ -11,6 +11,7 @@ export interface Job extends QueryGenerator {
   sourceShortname: string
   uproc: string  
   calendar: string
+  typeShortname: string
 }
 
 export interface JobState {

@@ -3,6 +3,7 @@ export type JobFormValues = {
   jobLongname: string
   jobHandling: string
   configADO: string 
+  typeShortname: string
   listID: string  
   templateID: string  
   sourceShortname: string

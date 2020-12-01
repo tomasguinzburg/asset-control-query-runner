@@ -6,11 +6,13 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editJob } from '../../store/md-jobs/actions';
 
-import { Breadcrumb, Form, Input, Card } from 'antd';
+import { Breadcrumb, Form, Input, Card, Select, PageHeader } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons'
 import { createFormatedQuery, createUnformatedQuery } from './ParseJob';
 import { Job } from '../../store/md-jobs/types';
+
+const {Option} = Select;
 
 //
 // Redux+Typescript boilerplate
@@ -59,14 +61,15 @@ class EditJob extends React.Component<PropsFromRedux & OwnProps> {
   render() {
     if (this.props.job !== undefined)
       return (
+        <PageHeader title="Edit"
+        onBack={() => this.props.history.push('/jobs')}>
         <div style={{ marginTop: 10 }}>
           <Card title="Edit MD_JOB"
             bordered={true}
             size="small"
             style={{ width: "calc(100%)" }}
             actions={[
-              <CloseCircleFilled onClick={() => this.props.history.push('/jobs')} className="closeCircle" style={{fontSize: "32px"}}/>,
-              <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark"style={{fontSize: "32px"}}/>          ]}
+              <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="checkMark"style={{fontSize: "32px"}}/> ]}
           >
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Query-runner</Breadcrumb.Item>
@@ -84,6 +87,7 @@ class EditJob extends React.Component<PropsFromRedux & OwnProps> {
                 jobLongname: this.props.job.jobLongname,
                 jobHandling: this.props.job.jobHandling,
                 configADO: this.props.job.configADO,
+                typeShortname: this.props.job.typeShortname,
                 listID: this.props.job.listID,
                 templateID: this.props.job.templateID,  
                 sourceShortname: this.props.job.sourceShortname,
@@ -120,6 +124,16 @@ class EditJob extends React.Component<PropsFromRedux & OwnProps> {
               >
                 <Input placeholder="config_ado" style={{ width: "calc(25%)" }} />
               </Form.Item>
+              <Form.Item label="type_shortname"
+              name="typeShortname"
+              rules={[{required: true, type: 'string'}]}>
+              <Select style={{width: "calc(10%)"}} > 
+                <Option value="CONS">CONS</Option>
+                <Option value="CERT">CERT</Option>
+                <Option value="DIST">DIST</Option>
+                <Option value="CAPT">CAPT</Option>
+              </Select>
+            </Form.Item>
               <Form.Item label="list_id"
                 name="listID"
                 hasFeedback
@@ -161,6 +175,7 @@ class EditJob extends React.Component<PropsFromRedux & OwnProps> {
             </Form>
           </Card>
         </div>
+        </PageHeader>
       );
     else
     this.props.history.push('/')

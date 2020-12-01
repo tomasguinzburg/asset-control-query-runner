@@ -6,11 +6,13 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { editCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, DatePicker, Card, PageHeader } from 'antd';
+import { Breadcrumb, Form, Input, DatePicker, Card, PageHeader, Select } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons'
 import { createFormatedQuery, createUnformatedQuery } from './ParseCircuit';
 import { Circuit } from '../../store/md-circuits/types';
+
+const {Option} = Select;
 
 //
 // Redux+Typescript boilerplate
@@ -62,9 +64,9 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
   render() {
     if (this.props.circuit !== undefined)
       return (
-        <div style={{marginTop: 10}}>
         <PageHeader title="Edit"
         onBack={() => this.props.history.push('/circuits')}>
+        <div style={{marginTop: 10}}>
         <Card
         title={`MD_CIRCUITS - ${this.props.circuit.ID}`}
         bordered={true} 
@@ -92,7 +94,8 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
               treeID: this.props.circuit.treeID,
               calendar: this.props.circuit.calendar,
               product: this.props.circuit.product,
-              groupID: this.props.circuit.groupID
+              groupID: this.props.circuit.groupID,
+              typeShortname: this.props.circuit.typeShortname
             }}
             >
               <Form.Item label="circuit_shortname" 
@@ -153,10 +156,18 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
               >
                   <Input style={{width: "calc(10%)" }}/>
               </Form.Item>
+              <Form.Item label="type_shortname"
+              name="typeShortname"
+              rules={[{required: true, type: 'string'}]}>
+              <Select style={{width: "calc(10%)"}} > 
+                <Option value="REV">REV</Option>
+                <Option value="MD">MD</Option>
+              </Select>
+            </Form.Item>
             </Form>
             </Card>
-            </PageHeader>
             </div>
+            </PageHeader>
       );
     this.props.history.push('/')
     return (<div>Esto nunca se dibuja</div>)

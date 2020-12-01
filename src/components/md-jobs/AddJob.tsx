@@ -5,11 +5,12 @@ import { JobFormValues } from './JobFormValues';
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addJob } from '../../store/md-jobs/actions';
-import { Breadcrumb, Form, Input, Card } from 'antd';
+import { Breadcrumb, Form, Input, Card, Select } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { PlusCircleFilled } from '@ant-design/icons'
 import { createFormatedQuery, createUnformatedQuery } from './ParseJob';
 
+const {Option} = Select;
 
 const mapState = (state: RootState) => ({
   jobsHistory: state.jobs.jobsHistory
@@ -124,6 +125,16 @@ class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }
               rules={[{ required: false, type: 'string' }]}
             >
               <Input placeholder="config_ado" style={{ width: "calc(25%)" }} />
+            </Form.Item>
+            <Form.Item label="type_shortname"
+              name="typeShortname"
+              rules={[{required: true, type: 'string'}]}>
+              <Select style={{width: "calc(10%)"}} > 
+                <Option value="CONS">CONS</Option>
+                <Option value="CERT">CERT</Option>
+                <Option value="DIST">DIST</Option>
+                <Option value="CAPT">CAPT</Option>
+              </Select>
             </Form.Item>
             <Form.Item label="list_id"
               name="listID"

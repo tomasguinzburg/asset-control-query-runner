@@ -7,7 +7,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../store/root-reducer';
 import { addCircuit } from '../../store/md-circuits/actions';
 
-import { Breadcrumb, Form, Input, DatePicker, Card } from 'antd';
+import { Breadcrumb, Form, Input, DatePicker, Card, Select } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { PlusCircleFilled } from '@ant-design/icons'
 
@@ -21,6 +21,8 @@ const mapState = (state: RootState) => ({
 const mapDispatch = {
   addCircuit: addCircuit,
 };
+
+const { Option } = Select;
 
 const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
@@ -44,7 +46,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
       , ID: ID
       , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
       , name: () =>values.circuitShortname
-      , description: () => values.circuitLongname + ", " + values.distributionTime + ", " + values.treeID + ", " + values.calendar + ", " + values.product + ", " + values.groupID
+      , description: () => values.circuitLongname + ", " + values.distributionTime + ", " + values.treeID + ", " + values.calendar + ", " + values.product + ", " + values.groupID + ", " + values.typeShortname
       , tag: () => "MD_CIRCUITS -" 
       , createFormatedQuery: () => createFormatedQuery(values)
       , createUnformatedQuery: () => createUnformatedQuery(values)
@@ -157,6 +159,14 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
               ]}
             >
               <Input placeholder="0" style={{ width: "calc(10%)" }} />
+            </Form.Item>
+            <Form.Item label="type_shortname"
+              name="typeShortname"
+              rules={[{required: true, type: 'string'}]}>
+              <Select style={{width: "calc(10%)"}} > 
+                <Option value="REV">REV</Option>
+                <Option value="MD">MD</Option>
+              </Select>
             </Form.Item>
           </Form>
         </Card>

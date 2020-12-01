@@ -9,6 +9,7 @@ export interface Circuit extends QueryGenerator {
   calendar: string
   product: string
   groupID: string
+  typeShortname: string
 }
 
 export interface CircuitsState {

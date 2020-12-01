@@ -18,7 +18,7 @@ export const createFormatedQuery = (form: JobFormValues): string => {
                                     , '${form.jobLongname}'
                                     , '${form.jobHandling}'
                                     , '${form.configADO}'
-                                    , (SELECT TYPE_ID FROM SAN_AC_MR_PRO.MD_TYPES WHERE TYPE_SHORTNAME='CAPT')
+                                    , (SELECT TYPE_ID FROM SAN_AC_MR_PRO.MD_TYPES WHERE TYPE_SHORTNAME='${form.typeShortname}')
                                     , '${form.listID}'
                                     , '${form.templateID}'
                                     , '${form.sourceShortname}'
