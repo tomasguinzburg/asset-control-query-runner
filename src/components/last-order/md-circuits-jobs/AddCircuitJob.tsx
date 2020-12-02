@@ -1,4 +1,4 @@
-import { Breadcrumb, Card, Input } from 'antd';
+import { Breadcrumb, Card, Input, Select } from 'antd';
 import Form, { FormInstance } from 'antd/lib/form';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -39,6 +39,8 @@ class AddCircuitJob extends React.Component<PropsFromRedux> {
       , path: () => `/circuits-jobs/${ID}`
       , type: () => "circuit-job"
     });
+
+    this.formRef.current?.resetFields();
   }
 
   generateID = () => this.props.circuitsJobsHistory.sort((a, b) => (a.ID - b.ID))
@@ -72,14 +74,19 @@ class AddCircuitJob extends React.Component<PropsFromRedux> {
               hasFeedback
               rules={[{ required: true, type: 'string' }]}
             >
-              <Input placeholder="circuit_shortname" style={{ width: "calc(25%)" }} />
+              {/* <Input placeholder="circuit_shortname" style={{ width: "calc(25%)" }} /> */}
+              <Select style={{width: "calc(25%)"}} disabled={this.props.circuitsHistory.length === 0}>
+                { this.props.circuitsHistory.map(circuit => <Select.Option value={circuit.name()}>{circuit.name()}</Select.Option>) }
+              </Select>
             </Form.Item>
             <Form.Item label="job_shortname"
               name="jobShortname"
               hasFeedback
               rules={[{ required: true, type: 'string' }]}
             >
-              <Input placeholder="job_shortname" style={{ width: "calc(25%)" }} />
+              <Select style={{width: "calc(25%)"}} disabled={this.props.jobsHistory.length === 0}>
+                { this.props.jobsHistory.map(job => <Select.Option value={job.name()}>{job.name()}</Select.Option>) }
+              </Select>
             </Form.Item>
             <Form.Item label="order"
               name="order"
