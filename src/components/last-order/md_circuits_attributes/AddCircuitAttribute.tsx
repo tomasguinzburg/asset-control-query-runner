@@ -10,7 +10,7 @@ import { PlusCircleFilled } from '@ant-design/icons'
 
 const mapState = (state: RootState) => ({ circuitsHistory: state.circuits.circuitsHistory
                                         , jobsHistory: state.jobs.jobsHistory
-                                        , circuitsAttributesHistory: state.circuitsJobs.circuitsJobsHistory
+                                        , circuitsAttributesHistory: state.circuitsAttributes.circuitsAttributesHistory
                                         });
 
 const mapDispatch = {
