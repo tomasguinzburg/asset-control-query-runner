@@ -32,11 +32,11 @@ class AddCircuitAttribute extends React.Component<PropsFromRedux> {
       ...values
       , ID: ID
       , name: () =>values.circuitShortname
-      , description: () => "circuitJob despues vemo"
-      , tag: () => "MD_CIRCUITS_JOBS -" 
+      , description: () => JSON.stringify(values,null,1)
+      , tag: () => "MD_CIRCUITS_ATTRIBUTES -" 
       , createFormatedQuery: () => createFormatedQuery(values)
       , createUnformatedQuery: () => createUnformatedQuery(values)
-      , path: () => `/circuits-attribute/${ID}`
+      , path: () => `/last-order/circuits-attribute/${ID}`
       , type: () => "circuit-attribute"
     });
 
