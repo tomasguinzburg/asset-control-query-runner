@@ -159,7 +159,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
               <Form.Item label="type_shortname"
               name="typeShortname"
               rules={[{required: true, type: 'string'}]}>
-              <Select style={{width: "calc(10%)"}} > 
+              <Select style={{width: "calc(20%)"}} > 
                 <Option value="REV">REV</Option>
                 <Option value="MD">MD</Option>
               </Select>

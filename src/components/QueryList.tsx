@@ -137,8 +137,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
       </Row>
       <ModalCircuit visible={this.state.displayResults} 
                     handleOk= {(e: any) => this.handleOkResultModal(e)} 
-                    prettySql={this.concatList().map((e) => e.createFormatedQuery())}
-                    tinySql={this.concatList().map((e) => e.createUnformatedQuery())}/>
+                    prettySql={this.concatList().reverse().map((e) => e.createFormatedQuery())}
+                    tinySql={this.concatList().reverse().map((e) => e.createUnformatedQuery())}/>
       <Modal
         title="Are you sure you want to erase all queries?"
         centered

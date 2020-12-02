@@ -91,7 +91,7 @@ class AddJob extends React.Component<PropsFromRedux> {
               hasFeedback
               rules={[{ required: true, type: 'string' }]}
             >
-              <Input placeholder="job_handling" style={{ width: "calc(10%)" }} />
+              <Input placeholder="job_handling" style={{ width: "calc(20%)" }} />
             </Form.Item>
             <Form.Item label="config_ado"
               name="configADO"
@@ -104,7 +104,7 @@ class AddJob extends React.Component<PropsFromRedux> {
             <Form.Item label="type_shortname"
               name="typeShortname"
               rules={[{required: true, type: 'string'}]}>
-              <Select style={{width: "calc(10%)"}} > 
+              <Select style={{width: "calc(20%)"}} > 
                 <Option value="CONS">CONS</Option>
                 <Option value="CERT">CERT</Option>
                 <Option value="DIST">DIST</Option>
