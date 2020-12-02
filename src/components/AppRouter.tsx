@@ -6,8 +6,8 @@ import AddJob from './md-jobs/AddJob';
 import EditJob from './md-jobs/EditJob';
 import AddCircuitJob from './last-order/md-circuits-jobs/AddCircuitJob'
 import EditCircuitJob from './last-order/md-circuits-jobs/EditCircuitJob';
-import AddCircuitAttribute from './last-order/md_circuits_attributes/AddCircuitAttribute';
-import EditCircuitAttribute from './last-order/md_circuits_attributes/EditCircuitAttribute';
+import AddCircuitAttribute from './last-order/md-circuits-attributes/AddCircuitAttribute';
+import EditCircuitAttribute from './last-order/md-circuits-attributes/EditCircuitAttribute';
 
 const AppRouter = () : any => {
     return (
