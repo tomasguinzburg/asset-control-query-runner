@@ -61,7 +61,9 @@ class MainLayout extends React.Component {
                   <Link to="/last-order/circuits-jobs">MD_CIRCUITS_JOBS</Link>
                  </Menu.Item>
                 <Menu.Item key="/circuits-systems" onClick={this.forceReRender}>MD_CIRCUITS_SYSTEMS</Menu.Item>
-                <Menu.Item key="/circuits-attributes" onClick={this.forceReRender}>MD_CIRCUITS_ATTRIBUTES</Menu.Item>
+                <Menu.Item key="/circuits-attributes" onClick={this.forceReRender}>
+                  <Link to="/last-order/circuits-attributes">MD_CIRCUITS_ATTRIBUTES</Link>
+                </Menu.Item>
                 <Menu.Item key="/circuit-dependencies" onClick={this.forceReRender}>MD_CIRCUIT_DEPENDENCIES</Menu.Item>
               </SubMenu>
             </Menu>
