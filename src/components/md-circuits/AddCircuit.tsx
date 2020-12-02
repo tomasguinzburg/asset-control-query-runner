@@ -28,16 +28,9 @@ const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boolean }> {
+class AddCircuit extends React.Component<PropsFromRedux> {
 
   formRef = React.createRef<FormInstance>();
-
-  constructor(props: PropsFromRedux) {
-    super(props);
-    this.state = {
-      displayResults: false
-    };
-  }
 
   onFinish = (values: CircuitFormValues) => {
     let ID = this.generateID() 
@@ -59,24 +52,6 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
 
   generateID = () => this.props.circuitsHistory.sort((a, b) => (a.ID - b.ID))
     .reduce((acc, curr) => (acc === curr.ID ? acc + 1 : acc), 0)
-
-  showModal = () => {
-    this.setState({
-      displayResults: true,
-    });
-  };
-
-  handleOk = (e: any) => {
-    this.setState({
-      displayResults: false,
-    });
-  };
-
-  handleCancel = (e: any) => {
-    this.setState({
-      displayResults: false,
-    });
-  };
 
   render() {
     return (
@@ -163,7 +138,7 @@ class AddCircuit extends React.Component<PropsFromRedux, { displayResults: boole
             <Form.Item label="type_shortname"
               name="typeShortname"
               rules={[{required: true, type: 'string'}]}>
-              <Select style={{width: "calc(10%)"}} > 
+              <Select style={{width: "calc(10%)"}} >
                 <Option value="REV">REV</Option>
                 <Option value="MD">MD</Option>
               </Select>

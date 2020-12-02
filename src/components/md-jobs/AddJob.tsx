@@ -24,16 +24,10 @@ const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }> {
+class AddJob extends React.Component<PropsFromRedux> {
 
   formRef = React.createRef<FormInstance>();
 
-  constructor(props: PropsFromRedux) {
-    super(props);
-    this.state = {
-      displayResults: false
-    };
-  }
 
   onFinish = (values: JobFormValues) => {
     let ID = this.generateID();
@@ -56,23 +50,6 @@ class AddJob extends React.Component<PropsFromRedux, { displayResults: boolean }
   generateID = () => this.props.jobsHistory.sort((a, b) => (a.ID - b.ID))
     .reduce((acc, curr) => (acc === curr.ID ? acc + 1 : acc), 0)
 
-  showModal = () => {
-    this.setState({
-      displayResults: true,
-    });
-  };
-
-  handleOk = (e: any) => {
-    this.setState({
-      displayResults: false,
-    });
-  };
-
-  handleCancel = (e: any) => {
-    this.setState({
-      displayResults: false,
-    });
-  };
 
   render() {
     return (

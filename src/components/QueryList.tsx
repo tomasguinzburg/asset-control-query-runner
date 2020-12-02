@@ -9,16 +9,23 @@ import ModalCircuit from './results/ModalCircuit';
 import { changeJobSelection, deleteJob } from "../store/md-jobs/actions";
 
 import path from 'path'
+import { changeCircuitJobSelection, deleteCircuitJob } from "../store/last-order/md-circuits-jobs/actions";
+import { runInThisContext } from "vm";
 
 const mapState = (state: RootState) => ({
   circuitsHistory: state.circuits.circuitsHistory,
-  jobsHistory: state.jobs.jobsHistory
+  jobsHistory: state.jobs.jobsHistory,
+  circuitsJobsHistory: state.circuitsJobs.circuitsJobsHistory
 });
 
 const mapDispatch = {
   clearQueries: clearQueries,
+
   changeCircuitSelection: changeCircuitSelection,
   changeJobSelection: changeJobSelection,
+  changeCircuitJobSelection: changeCircuitJobSelection,
+
+  deleteCircuitJob: deleteCircuitJob,
   deleteCircuit: deleteCircuit,
   deleteJob: deleteJob
 };
@@ -35,6 +42,10 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
       displayResults: false,
       displayDanger: false,
     };
+  }
+
+  concatList = () => {
+    return this.props.circuitsHistory.concat(this.props.jobsHistory).concat(this.props.circuitsJobsHistory).reverse()  
   }
 
   showResultModal = () => {
@@ -59,7 +70,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
         {/* <div style={{maxHeight: "200px", overflowY: "scroll", border: "#fff"}}> */}
           <List
             itemLayout="horizontal"
-            dataSource={this.props.circuitsHistory.concat(this.props.jobsHistory).reverse()}
+            dataSource={this.concatList()}
             bordered
             split
             size="small"
@@ -74,6 +85,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                       return this.props.changeCircuitSelection(item.ID)
                     else if (item.type() === "job")
                       return this.props.changeJobSelection(item.ID)
+                    else if (item.type() === "circuit-job")
+                      return this.props.changeCircuitSelection(item.ID)
                   }}>{item.tag() + item.ID + ": " + item.name()}</Link> }
                   description={item.description()}
                 />
@@ -82,6 +95,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                     return this.props.deleteCircuit(item.ID)
                   else if (item.type() === "job")
                     return this.props.deleteJob(item.ID)
+                  else if (item.type() === "circuit-job")
+                    return this.props.deleteCircuitJob(item.ID)
                 }} />
               </List.Item>
             )}
@@ -90,7 +105,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
         </Col>
         <div style={{ marginRight:10, float: 'right', display: 'flex', alignItems: "flex-end"}}>
           <Col span={2} >
-            {this.props.circuitsHistory.concat(this.props.jobsHistory).length > 0 ?
+            {this.concatList().length > 0 ?
             <div>
               <Tooltip title="Show SQL">
                 <Button htmlType="button" type="primary" icon={<DatabaseFilled/>} onClick={() => this.showResultModal()} ></Button>
@@ -105,8 +120,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
       </Row>
       <ModalCircuit visible={this.state.displayResults} 
                     handleOk= {(e: any) => this.handleOkResultModal(e)} 
-                    prettySql={this.props.circuitsHistory.concat(this.props.jobsHistory).map((e) => e.createFormatedQuery())}
-                    tinySql={this.props.circuitsHistory.concat(this.props.jobsHistory).map((e) => e.createUnformatedQuery())}/>
+                    prettySql={this.concatList().map((e) => e.createFormatedQuery())}
+                    tinySql={this.concatList().map((e) => e.createUnformatedQuery())}/>
       <Modal
         title="Are you sure you want to erase all queries?"
         centered
