@@ -31,7 +31,7 @@ class MainLayout extends React.Component {
   }
 
   render() {
-    let href = window.location.href.split('/')[3];  //hack to select the key that matches the URL path on refresh
+    let href = window.location.href.split('/').slice(3).reduce((acc, next) => acc += '/' + next);  //hack to select the key that matches the URL path on refresh
     const { collapsed } = this.state;
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -57,11 +57,11 @@ class MainLayout extends React.Component {
                 <Link to="/jobs">MD_JOBS</Link>
               </Menu.Item>
               <SubMenu key="/last-order" icon={<PullRequestOutlined />} title="Last Order">
-                <Menu.Item key="/circuits-jobs" onClick={this.forceReRender}>
+                <Menu.Item key="/last-order/circuits-jobs" onClick={this.forceReRender}>
                   <Link to="/last-order/circuits-jobs">MD_CIRCUITS_JOBS</Link>
                  </Menu.Item>
-                <Menu.Item key="/circuits-systems" onClick={this.forceReRender}>MD_CIRCUITS_SYSTEMS</Menu.Item>
-                <Menu.Item key="/circuits-attributes" onClick={this.forceReRender}>
+                <Menu.Item key="/last-order/circuits-systems" onClick={this.forceReRender}>MD_CIRCUITS_SYSTEMS</Menu.Item>
+                <Menu.Item key="/last-order/circuits-attributes" onClick={this.forceReRender}>
                   <Link to="/last-order/circuits-attributes">MD_CIRCUITS_ATTRIBUTES</Link>
                 </Menu.Item>
                 <Menu.Item key="/circuit-dependencies" onClick={this.forceReRender}>MD_CIRCUIT_DEPENDENCIES</Menu.Item>
