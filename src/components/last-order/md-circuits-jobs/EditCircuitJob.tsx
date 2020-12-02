@@ -40,7 +40,7 @@ class EditCircuitJob extends React.Component<PropsFromRedux & OwnProps> {
     this.props.editCircuitJob({
       ...values
       , ID: this.props.circuitJob.ID
-      , name: () => "{circuitShortname:" + values.circuitShortname + ", jobShortname: " + values.jobShortname + "}"
+      , name: () => ""
       , description: () => JSON.stringify(values, null, 1)
       , tag: () => "MD_CIRCUITS_JOBS -" 
       , createFormatedQuery: () => createFormatedQuery(values)

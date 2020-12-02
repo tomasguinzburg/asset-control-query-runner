@@ -9,12 +9,14 @@ import ModalCircuit from './results/ModalCircuit';
 import { changeJobSelection, deleteJob } from "../store/md-jobs/actions";
 import { changeCircuitJobSelection, deleteCircuitJob } from "../store/last-order/md-circuits-jobs/actions";
 import { changeCircuitAttributeSelection, deleteCircuitAttribute } from "../store/last-order/md-circuits-attributes/actions";
+import { changeCircuitSystemSelection, deleteCircuitSystem } from "../store/last-order/md-circuits-systems/actions";
 
 const mapState = (state: RootState) => ({
   circuitsHistory: state.circuits.circuitsHistory,
   jobsHistory: state.jobs.jobsHistory,
   circuitsJobsHistory: state.circuitsJobs.circuitsJobsHistory,
-  circuitsAttributesHistory: state.circuitsAttributes.circuitsAttributesHistory
+  circuitsAttributesHistory: state.circuitsAttributes.circuitsAttributesHistory,
+  circuitsSystemsHistory: state.circuitsSystems.circuitsSystemsHistory
 });
 
 const mapDispatch = {
@@ -24,11 +26,13 @@ const mapDispatch = {
   changeJobSelection: changeJobSelection,
   changeCircuitJobSelection: changeCircuitJobSelection,
   changeCircuitAttributeSelection: changeCircuitAttributeSelection,
+  changeCircuitSystemSelection: changeCircuitSystemSelection,
   
   deleteCircuitJob: deleteCircuitJob,
   deleteCircuit: deleteCircuit,
   deleteJob: deleteJob,
-  deleteCircuitAttribute: deleteCircuitAttribute
+  deleteCircuitAttribute: deleteCircuitAttribute,
+  deleteCircuitSystem: deleteCircuitSystem
 };
 
 const connector = connect( mapState, mapDispatch )
@@ -46,7 +50,11 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
   }
 
   concatList = () => {
-    return this.props.circuitsHistory.concat(this.props.jobsHistory).concat(this.props.circuitsJobsHistory).concat(this.props.circuitsAttributesHistory).reverse()  
+    return this.props.circuitsHistory.concat(this.props.jobsHistory)
+                                     .concat(this.props.circuitsJobsHistory)
+                                     .concat(this.props.circuitsAttributesHistory)
+                                     .concat(this.props.circuitsSystemsHistory)
+                                     .reverse()  
   }
 
   showResultModal = () => {
@@ -90,6 +98,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                       return this.props.changeCircuitJobSelection(item.ID)
                     else if (item.type() === "circuit-attribute")
                       return this.props.changeCircuitAttributeSelection(item.ID)
+                    else if (item.type() === "circuit-system")
+                      return this.props.changeCircuitSystemSelection(item.ID)
                   }}>{item.tag() + item.ID + ": " + item.name()}</Link> }
                   description={item.description()}
                 />
@@ -102,6 +112,8 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                     return this.props.deleteCircuitJob(item.ID)
                   else if (item.type() === "circuit-attribute")
                     return this.props.deleteCircuitAttribute(item.ID)
+                  else if (item.type() === "circuit-system")
+                    return this.props.deleteCircuitSystem(item.ID)
                 }} />
               </List.Item>
             )}

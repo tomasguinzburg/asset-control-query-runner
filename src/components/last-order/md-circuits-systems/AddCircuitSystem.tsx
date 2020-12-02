@@ -2,18 +2,18 @@ import { Breadcrumb, Card, Input, Select } from 'antd';
 import Form, { FormInstance } from 'antd/lib/form';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { addCircuitAttribute } from '../../../store/last-order/md-circuits-attributes/actions';
 import { RootState } from '../../../store/root-reducer';
-import { CircuitAttributeFormValues } from './CircuitAttributeFormValues';
-import { createFormatedQuery, createUnformatedQuery } from './ParseCircuitAttribute';
+import { CircuitSystemFormValues } from './CircuitSystemFormValues';
+import { createFormatedQuery, createUnformatedQuery } from './ParseCircuitSystem';
 import { PlusCircleFilled } from '@ant-design/icons'
+import { addCircuitSystem } from '../../../store/last-order/md-circuits-systems/actions';
 
 const mapState = (state: RootState) => ({ circuitsHistory: state.circuits.circuitsHistory
-                                        , circuitsAttributesHistory: state.circuitsAttributes.circuitsAttributesHistory
+                                        , circuitsSystemsHistory: state.circuitsSystems.circuitsSystemsHistory
                                         });
 
 const mapDispatch = {
-  addCircuitAttribute: addCircuitAttribute,
+  addCircuitSystem: addCircuitSystem,
 };
 
 
@@ -21,34 +21,34 @@ const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-class AddCircuitAttribute extends React.Component<PropsFromRedux> {
+class AddCircuitSystem extends React.Component<PropsFromRedux> {
   
   formRef = React.createRef<FormInstance>();
 
-  onFinish = (values: CircuitAttributeFormValues) => {
+  onFinish = (values: CircuitSystemFormValues) => {
     let ID = this.generateID()
-    this.props.addCircuitAttribute({
+    this.props.addCircuitSystem({
       ...values
       , ID: ID
       , name: () => ""
-      , description: () => JSON.stringify(values,null,1)
-      , tag: () => "MD_CIRCUITS_ATTRIBUTES -" 
+      , description: () => JSON.stringify(values, null, 1)
+      , tag: () => "MD_CIRCUITS_SYSTEMS -" 
       , createFormatedQuery: () => createFormatedQuery(values)
       , createUnformatedQuery: () => createUnformatedQuery(values)
-      , path: () => `/last-order/circuits-attributes/${ID}`
-      , type: () => "circuit-attribute"
+      , path: () => `/last-order/circuits-systems/${ID}`
+      , type: () => "circuit-system"
     });
 
     this.formRef.current?.resetFields();
   }
 
-  generateID = () => this.props.circuitsAttributesHistory.sort((a, b) => (a.ID - b.ID))
-                                                   .reduce((acc, curr) => (acc === curr.ID ? acc + 1 : acc), 0)
+  generateID = () => this.props.circuitsSystemsHistory.sort((a, b) => (a.ID - b.ID))
+                                                      .reduce((acc, curr) => (acc === curr.ID ? acc + 1 : acc), 0)
 
     render() {
     return (
       <div style={{marginTop: 10}}>
-        <Card title="Add MD_CIRCUITS_ATTRIBUTES"
+        <Card title="Add MD_CIRCUITS_SYSTEMS"
           bordered={true}
           size="small"
           style={{ width: "calc(100%)",}}
@@ -58,7 +58,7 @@ class AddCircuitAttribute extends React.Component<PropsFromRedux> {
         >
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Query-runner</Breadcrumb.Item>
-            <Breadcrumb.Item>Add MD_CIRCUITS_ATTRIBUTES</Breadcrumb.Item>
+            <Breadcrumb.Item>Add MD_CIRCUITS_SYSTEMS</Breadcrumb.Item>
           </Breadcrumb>
           <Form
             name="control-ref"
@@ -73,16 +73,17 @@ class AddCircuitAttribute extends React.Component<PropsFromRedux> {
               hasFeedback
               rules={[{ required: true, type: 'string' }]}
             >
+              
               <Select style={{width: "calc(25%)"}} disabled={this.props.circuitsHistory.length === 0}>
                 { this.props.circuitsHistory.map(circuit => <Select.Option value={circuit.name()}>{circuit.name()}</Select.Option>) }
               </Select>
             </Form.Item>
-            <Form.Item label="attribute_name"
-              name="attributeName"
+            <Form.Item label="system_shortname"
+              name="systemShortname"
               hasFeedback
               rules={[{ required: true, type: 'string' }]}
             >
-              <Input placeholder="attribute_name" style={{ width: "calc(25%)" }} />
+              <Input placeholder="system_shortname" style={{ width: "calc(25%)" }} />
             </Form.Item>
           </Form>
         </Card>
@@ -91,4 +92,4 @@ class AddCircuitAttribute extends React.Component<PropsFromRedux> {
   }
 }
 
-export default connector(AddCircuitAttribute)
+export default connector(AddCircuitSystem)

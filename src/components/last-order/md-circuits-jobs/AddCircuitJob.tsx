@@ -31,7 +31,7 @@ class AddCircuitJob extends React.Component<PropsFromRedux> {
     this.props.addCircuitJob({
       ...values
       , ID: ID
-      , name: () => "{circuitShortname:" + values.circuitShortname + ", jobShortname: " + values.jobShortname + "}"
+      , name: () => ""
       , description: () => JSON.stringify(values, null, 1)
       , tag: () => "MD_CIRCUITS_JOBS -" 
       , createFormatedQuery: () => createFormatedQuery(values)
