@@ -86,7 +86,7 @@ class QueryList extends React.Component<PropsFromRedux, { displayResults: boolea
                     else if (item.type() === "job")
                       return this.props.changeJobSelection(item.ID)
                     else if (item.type() === "circuit-job")
-                      return this.props.changeCircuitSelection(item.ID)
+                      return this.props.changeCircuitJobSelection(item.ID)
                   }}>{item.tag() + item.ID + ": " + item.name()}</Link> }
                   description={item.description()}
                 />

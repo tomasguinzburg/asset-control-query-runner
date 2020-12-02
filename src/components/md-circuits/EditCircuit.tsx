@@ -50,7 +50,7 @@ class EditCircuit extends React.Component<PropsFromRedux & OwnProps> {
                           , ID: this.props.circuit.ID
                           , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
                           , name: () => values.circuitShortname
-                          , description: () => values.toString()
+                          , description: () => JSON.stringify(values, null, 1)
                           , tag: () => "MD_CIRCUITS -" 
                           , createFormatedQuery: () => createFormatedQuery(values)
                           , createUnformatedQuery: () => createUnformatedQuery(values)

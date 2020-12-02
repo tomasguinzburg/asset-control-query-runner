@@ -39,7 +39,7 @@ class AddCircuit extends React.Component<PropsFromRedux> {
       , ID: ID
       , distributionTime: Moment(values.distributionTime).format('YYYY-MM-DD HH:mm:ss')
       , name: () =>values.circuitShortname
-      , description: () => values.circuitLongname + ", " + values.distributionTime + ", " + values.treeID + ", " + values.calendar + ", " + values.product + ", " + values.groupID + ", " + values.typeShortname
+      , description: () => JSON.stringify(values, null, 1)
       , tag: () => "MD_CIRCUITS -" 
       , createFormatedQuery: () => createFormatedQuery(values)
       , createUnformatedQuery: () => createUnformatedQuery(values)

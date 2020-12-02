@@ -47,7 +47,7 @@ class EditJob extends React.Component<PropsFromRedux & OwnProps> {
     this.props.editJob({ ...values 
                        , ID: this.props.job.ID
                        , name: () => values.jobShortname
-                       , description: () => values.toString()
+                       , description: () => JSON.stringify(values, null, 1)
                        , tag: () => "MD_JOBS -" 
                        , createFormatedQuery: () => createFormatedQuery(values)
                        , createUnformatedQuery: () => createUnformatedQuery(values)

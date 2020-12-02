@@ -1,65 +1,74 @@
-import { Breadcrumb, Card, Input, Select } from 'antd';
+import { Breadcrumb, Card, Input, PageHeader, Select } from 'antd';
 import Form, { FormInstance } from 'antd/lib/form';
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { addCircuitJob } from '../../../store/last-order/md-circuits-jobs/actions';
-import { RootState } from '../../../store/root-reducer';
+import { connect, ConnectedProps } from "react-redux";
+import { editCircuitJob } from "../../../store/last-order/md-circuits-jobs/actions";
+import { CircuitJob } from "../../../store/last-order/md-circuits-jobs/types";
+import { RootState } from "../../../store/root-reducer";
 import { CircuitJobFormValues } from './CircuitJobFormValues';
 import { createFormatedQuery, createUnformatedQuery } from './ParseCircuitJob';
-import { PlusCircleFilled } from '@ant-design/icons'
 
-const mapState = (state: RootState) => ({ circuitsHistory: state.circuits.circuitsHistory
-                                        , jobsHistory: state.jobs.jobsHistory
-                                        , circuitsJobsHistory: state.circuitsJobs.circuitsJobsHistory
-                                        });
+import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons'
+
+const mapState = (state: RootState) => ({
+  circuitJob: state.circuitsJobs.circuitsJobsHistory[state.circuitsJobs.selected] as CircuitJob,
+  circuitsHistory: state.circuits.circuitsHistory,
+  jobsHistory: state.jobs.jobsHistory
+});
 
 const mapDispatch = {
-  addCircuitJob: addCircuitJob,
+  editCircuitJob: editCircuitJob,
 };
 
+interface OwnProps {
+  history: string[],
+}
 
-const connector = connect(mapState, mapDispatch)
+const connector = connect( mapState, mapDispatch )
 type PropsFromRedux = ConnectedProps<typeof connector>
 
+class EditCircuitJob extends React.Component<PropsFromRedux & OwnProps> {
 
-class AddCircuitJob extends React.Component<PropsFromRedux> {
-  
   formRef = React.createRef<FormInstance>();
 
+    
+  componentDidUpdate(){
+    this.formRef.current?.resetFields();
+  }
+  
   onFinish = (values: CircuitJobFormValues) => {
-    let ID = this.generateID()
-    this.props.addCircuitJob({
+    this.props.editCircuitJob({
       ...values
-      , ID: ID
+      , ID: this.props.circuitJob.ID
       , name: () => "{circuitShortname:" + values.circuitShortname + ", jobShortname: " + values.jobShortname + "}"
       , description: () => JSON.stringify(values, null, 1)
       , tag: () => "MD_CIRCUITS_JOBS -" 
       , createFormatedQuery: () => createFormatedQuery(values)
       , createUnformatedQuery: () => createUnformatedQuery(values)
-      , path: () => `/last-order/circuits-jobs/${ID}`
+      , path: () => `/last-order/circuits-jobs/${this.props.circuitJob.ID}`
       , type: () => "circuit-job"
     });
 
     this.formRef.current?.resetFields();
+    this.props.history.push('/last-order/circuits-jobs')
   }
-
-  generateID = () => this.props.circuitsJobsHistory.sort((a, b) => (a.ID - b.ID))
-                                                   .reduce((acc, curr) => (acc === curr.ID ? acc + 1 : acc), 0)
-
-    render() {
+  render() {
+    if (this.props.circuitJob !== undefined)
     return (
+      <PageHeader title="Edit"
+        onBack={() => this.props.history.push('/last-order/circuits-jobs')}>
       <div style={{marginTop: 10}}>
-        <Card title="Add MD_CIRCUITS_JOBS"
+        <Card title="Edit MD_CIRCUITS_JOBS"
           bordered={true}
           size="small"
           style={{ width: "calc(100%)",}}
           actions={[
-            <PlusCircleFilled onClick={() => this.formRef.current?.submit()} className="ant-btn-piola" style={{ fontSize: "32px"}}/>
+            <CheckCircleFilled onClick={() => this.formRef.current?.submit()} className="ant-btn-piola" style={{ fontSize: "32px"}}/>
           ]}
         >
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Query-runner</Breadcrumb.Item>
-            <Breadcrumb.Item>Add MD_CIRCUITS_JOBS</Breadcrumb.Item>
+            <Breadcrumb.Item>Edit MD_CIRCUITS_JOBS</Breadcrumb.Item>
           </Breadcrumb>
           <Form
             name="control-ref"
@@ -68,6 +77,11 @@ class AddCircuitJob extends React.Component<PropsFromRedux> {
             wrapperCol={{ span: 16 }}
             onFinish={this.onFinish}
             size="small"
+            initialValues={{
+              circuitShortname: this.props.circuitJob.circuitShortname,
+              jobShortname: this.props.circuitJob.jobShortname,
+              order: this.props.circuitJob.order
+            }}
           >
             <Form.Item label="circuit_shortname"
               name="circuitShortname"
@@ -107,8 +121,12 @@ class AddCircuitJob extends React.Component<PropsFromRedux> {
           </Form>
         </Card>
       </div>
+      </PageHeader>
     );
+
+    this.props.history.push('/')
+    return (<div>Esto nunca se dibuja</div>);
   }
 }
 
-export default connector(AddCircuitJob)
+export default connector(EditCircuitJob)

@@ -5,6 +5,7 @@ import EditCircuit from './md-circuits/EditCircuit';
 import AddJob from './md-jobs/AddJob';
 import EditJob from './md-jobs/EditJob';
 import AddCircuitJob from './last-order/md-circuits-jobs/AddCircuitJob'
+import EditCircuitJob from './last-order/md-circuits-jobs/EditCircuitJob';
 
 const AppRouter = () : any => {
     return (
@@ -20,7 +21,7 @@ const AppRouter = () : any => {
         <Route exact path="/last-order/circuits-jobs">
           <AddCircuitJob />
         </Route>
-        <Route path="/last-order/circuits-jobs/:circuitJobID" component={EditJob}></Route> {/*todo*/}
+        <Route path="/last-order/circuits-jobs/:circuitJobID" component={EditCircuitJob}></Route> {/*todo*/}
       </Switch>
     )
 }
